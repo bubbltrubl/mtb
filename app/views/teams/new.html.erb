@@ -1,0 +1,55 @@
+<div class="page-header">
+  <h1>Maak een ploeg aan <small>Selecteer 20 renners</h1>
+</div>
+
+<%= form_for(@team) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+      <ul>
+      <% @team.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="clearfix">
+    <%= f.label :name %>
+    <div class="input">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :budget %>
+    <div class="input">
+      <div class="input-prepend">
+        <span class="add-on">&euro;</span>
+        <%= f.text_field :budget, :disabled => true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span9">
+      <div id="selected_riders">
+        <%= render :partial => "riders/selected" %>
+     </div>
+    </div>
+    <div class="span7">
+        <div class="clearfix">
+          <div class="input no-margin-input">
+            <%= search_field_tag "name", nil, {:id => "search_name", :placeholder => "Naam ...", :autocomplete => 'off'} %>
+          <span class="help-block" id="search_message">Zoek een renner...</span>
+          </div>
+        </div>
+      <div id="all_riders">
+      </div>
+   </div>
+  </div>
+  <div class="actions">
+    <%= f.submit "Verder", :class => 'btn primary' %>
+    <%= f.submit "Maak leeg", :type => :reset, :class => 'btn' %>
+  </div>
+<% end %>

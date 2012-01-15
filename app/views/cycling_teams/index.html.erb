@@ -1,0 +1,21 @@
+<% title "Cycling Teams" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Short Name</th>
+    <th>Active</th>
+  </tr>
+  <% for cycling_team in @cycling_teams %>
+    <tr>
+      <td><%= cycling_team.name %></td>
+      <td><%= cycling_team.short_name %></td>
+      <td><%= cycling_team.active %></td>
+      <td><%= link_to "Show", cycling_team %></td>
+      <td><%= link_to "Edit", edit_cycling_team_path(cycling_team) %></td>
+      <td><%= link_to "Destroy", cycling_team, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Cycling Team", new_cycling_team_path %></p>

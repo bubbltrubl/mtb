@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @rider.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @rider.value %>
+</p>
+
+<p>
+  <b>Points:</b>
+  <%= @rider.points %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @rider.active %>
+</p>
+
+<p>
+  <b>Cycling Team:</b>
+  <%= @rider.cycling_team.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_rider_path(@rider) %> |
+<%= link_to 'Back', riders_path %>

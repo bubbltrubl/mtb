@@ -1,0 +1,29 @@
+<h1>Listing riders</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Value</th>
+    <th>Points</th>
+    <th>Cycling Team</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @riders.each do |rider| %>
+  <tr>
+    <td><%= rider.name %></td>
+    <td><%= rider.value %></td>
+    <td><%= rider.points %></td>
+    <td><%= rider.cycling_team.name %></td>
+    <td><%= link_to 'Show', rider %></td>
+    <td><%= link_to 'Edit', edit_rider_path(rider) %></td>
+    <td><%= link_to 'Destroy', rider, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rider', new_rider_path %>

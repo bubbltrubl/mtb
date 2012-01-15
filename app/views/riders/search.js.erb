@@ -1,0 +1,14 @@
+<% if @riders.nil? %>
+  $("#all_riders").html("");
+  $("#search_message").html('Zoek een renner...');
+<% elsif @riders.empty? %>
+  $("#all_riders").html("");
+  $("#search_message").html('Geen resultaten gevonden');
+<% elsif(@riders.length > 30) %>
+  $("#all_riders").html("");
+  $("#search_message").html('Te veel resultaten gevonden. Probeer uw zoekopdracht te verfijnen');
+<% else %>
+  $("#search_message").html('');
+  $("#all_riders").html("<%= escape_javascript(render(:partial => 'riders/search'))%>");
+<% end %>
+$("#search_name").removeClass('ui-autocomplete-loading');

@@ -1,0 +1,20 @@
+<% title "Cycling Team" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cycling_team.name %>
+</p>
+<p>
+  <strong>Short Name:</strong>
+  <%= @cycling_team.short_name %>
+</p>
+<p>
+  <strong>Active:</strong>
+  <%= @cycling_team.active %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_cycling_team_path(@cycling_team) %> |
+  <%= link_to "Destroy", @cycling_team, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", cycling_teams_path %>
+</p>

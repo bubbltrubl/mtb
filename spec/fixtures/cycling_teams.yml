@@ -1,0 +1,9 @@
+one:
+  name: MyString
+  short_name: MyString
+  active: false
+
+two:
+  name: MyString
+  short_name: MyString
+  active: false

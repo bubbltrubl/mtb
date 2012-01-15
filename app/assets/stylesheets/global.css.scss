@@ -1,0 +1,92 @@
+@mixin bottom-top-gradient($start,$end) {
+  background-image: -khtml-gradient(linear, left top, left bottom, from($start), to($end));
+  background-image: -moz-linear-gradient(top, $start, $end);
+  background-image: -ms-linear-gradient(top, $start, $end);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $end));
+  background-image: -webkit-linear-gradient(top, $start, $end);
+  background-image: -o-linear-gradient(top, $start, $end);
+  background-image: linear-gradient(top, $start, $end);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$start', endColorstr='$end', GradientType=0);
+
+}
+
+.topbar-inner {
+  background-color: #DD4B39;
+  @include bottom-top-gradient(#DD4B39,#D14836);
+}
+
+.topbar div > ul .active > a, .nav .active > a {
+  background-color: #C53727;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.topbar a {
+  color: #FFFFFF;
+}
+
+.topbar div > ul a:hover, .nav a:hover {
+  background-color: rgba(255,255,255,0.05); 
+}
+
+#content {
+  padding-top: 40px;
+}
+
+.topbar .brand {
+  color: #eeeeee;
+}
+
+.btn.subscribe {
+  background-color: #DD4B39;
+  @include bottom-top-gradient(#DD4B39,#D14836);
+  border-color: #c43c35 #c43c35 #882a25;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+  font-size: 18px;
+  &:hover {
+    color: #FFFFFF;
+    background-position: 0 -200px;
+  }
+}
+
+.container.top_margin {
+  margin-top: 10px;
+}
+
+form .input.no-margin-input {
+  margin-left: 0;
+}
+
+#all_riders table, #selected_riders table {
+  td {
+    vertical-align: middle;
+  }
+  td, th {
+    line-height: 27px;
+    padding-top:5px;
+    padding-bottom: 5px;
+  }
+  .btn.small {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+#all_riders table td.rider_name span, #selected_riders table td.rider_name span{
+  width: 215px;
+  height: 27px;
+  overflow: hidden;
+  display: block;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#all_riders table td.rider_value, #selected_riders table td.rider_value {
+  width: 60px;
+}
+
+#selected_riders table td.rider_name span{
+  width: 240px;
+}

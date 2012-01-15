@@ -1,0 +1,32 @@
+<table class="bordered-table zebra-striped">
+  <thead>
+    <th>#</th>
+    <th>Renner</th>
+    <th>Ploeg</th>
+    <th>Prijs</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @selected_riders.each_with_index do |rider,key| %>
+      <%= hidden_field_tag "team[riders][]", rider.id, :class => "selected_rider" %> 
+      <tr>
+        <td><%= key + 1 %></td>
+        <td class="rider_name"><span><%= rider.name %></span></td>
+        <td><%= rider.cycling_team.short_name %></td>
+        <td class="rider_value"><%= number_to_currency(rider.value, :unit => "€", :delimiter => " ",:precision => 0)%></td>
+        <td><%= link_to "Verwijder", "#", {:class => 'btn danger small remove_rider', 
+                                           :id => "rider_#{rider.id}"} %></td>
+      </tr>
+    <% end %>
+    <% (@selected_riders.length+1..20).each do |rider| %>
+      <tr>
+        <td><%= rider%></td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

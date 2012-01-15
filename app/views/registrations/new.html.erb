@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>Schrijf in <small>Maak een profiel aan</small></h1>
+</div>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="clearfix">
+    <%= f.label :username %>
+    <div class="input">
+      <%= f.text_field :username %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :email %>
+    <div class="input">
+      <%= f.email_field :email %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :password %>
+    <div class="input">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :password_confirmation %>
+    <div class="input">
+      <%= f.password_field :password_confirmation %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Verder", :class => 'btn primary' %>
+    <%= f.submit "Maak leeg", :type => :reset, :class => 'btn' %>
+  </div>
+<% end %>

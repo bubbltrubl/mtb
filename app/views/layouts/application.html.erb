@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mega.tom.bike - 
+    <% title =  yield(:title) %>
+    <% if (title and not title.empty?)%><%= title %><% else %>onvoorstelbaar onvoorspelbaar<% end %>
+  </title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="container">
+        <%= link_to "mega.tom.bike", root_path, :class => 'brand' %> 
+        <ul class="nav">
+          <% unless user_signed_in? %>
+            <li><%= link_to "Inschrijven", new_user_registration_path %></li>
+          <% else %>
+            <li><%= link_to "Mijn ploegen", "#" %></li>
+          <% end %>
+          <li><%= link_to "Reglement", "#" %></li>
+          <li><%= link_to "Kalender", "#"%></li>
+        </ul>
+        <% if user_signed_in? %>
+          <div class="pull-right">
+            <ul>
+              <li>
+                <%= link_to "Uitloggen", destroy_user_session_path, :method => :delete %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <div class="pull-right">
+            <ul>
+              <li>
+                <%= link_to "Inloggen", new_user_session_path %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div id="content">
+    <% unless (controller_name == "subscribe" and action_name == "index") %>
+      <div class="container top_margin">
+      <%= render :partial => "shared/flash_messages" %>
+    <% end %>
+    <%= yield %>
+    <% unless (controller_name == "subscribe" and action_name == "index") %> 
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

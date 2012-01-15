@@ -1,0 +1,27 @@
+<%= form_for @cycling_team do |f| %>
+  <% if @cycling_team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cycling_team.errors.count, "error") %> prohibited this cycling team from being saved:</h2>
+
+      <ul>
+      <% @cycling_team.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :short_name %><br />
+    <%= f.text_field :short_name %>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

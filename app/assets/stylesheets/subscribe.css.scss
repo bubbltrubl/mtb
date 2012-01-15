@@ -1,0 +1,28 @@
+// Place all the styles related to the Subscribe controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+header.intro {
+  background-color: #222222;
+  color: #888888;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  padding-top: 40px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  p.lead {
+    font-size: 20px;
+    line-height: 27px;
+  }
+  h1 {
+    font-size: 54px;
+    color: #888888;
+    .tom {
+      color: #C14B30;
+    }
+  }
+}
+
+#subscribe .container div{
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,0 +1,20 @@
+<table class="zebra-striped">
+  <thead>
+    <th>Renner</th>
+    <th>Prijs</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @riders.each do |rider| %>
+      <tr>
+        <td class="rider_name"><span><%= rider.name %></span></td>
+        <td class="rider_value"><%= number_to_currency(rider.value, :unit => "€", :delimiter => " ",:precision => 0)%></td>
+        <td>
+          <% unless @selected_riders.include?(rider.id) %>
+            <%= link_to "Voeg toe", "#", {:class => 'btn success small add_rider', :id => "rider_#{rider.id}"} %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 

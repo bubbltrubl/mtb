@@ -90,3 +90,7 @@ form .input.no-margin-input {
 #selected_riders table td.rider_name span{
   width: 240px;
 }
+
+.ui-autocomplete-loading { 
+  background: url("indicator.gif") no-repeat scroll right center white;
+}

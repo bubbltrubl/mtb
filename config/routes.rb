@@ -1,4 +1,10 @@
 Megatombike::Application.routes.draw do
+  resources :race_teams
+
+  resources :categories
+
+  resources :races
+
   post "teams/add_rider"
   post "teams/remove_rider"
   post "riders/search"

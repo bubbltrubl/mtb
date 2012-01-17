@@ -1,0 +1,49 @@
+<%= form_for(@race) do |f| %>
+  <% if @race.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@race.errors.count, "error") %> prohibited this race from being saved:</h2>
+
+      <ul>
+      <% @race.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.datetime_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.datetime_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :is_tour %><br />
+    <%= f.check_box :is_tour %>
+  </div>
+  <div class="field">
+    <%= f.label :previous_winner %><br />
+    <%= f.text_field :previous_winner %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id %><br />
+    <%= f.collection_select(:category_id, Category.all, :id, :name, :prompt => 'Selecteer ...') %>
+  </div>
+  <div class="field">
+    <%= f.label :results_ready %><br />
+    <%= f.check_box :results_ready %>
+  </div>
+  <div class="field">
+    <%= f.label :team_time_trial %><br />
+    <%= f.check_box :team_time_trial %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

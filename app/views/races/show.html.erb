@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @race.name %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @race.date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @race.end_date %>
+</p>
+
+<p>
+  <b>Is tour:</b>
+  <%= @race.is_tour %>
+</p>
+
+<p>
+  <b>Previous winner:</b>
+  <%= @race.previous_winner %>
+</p>
+
+<p>
+  <b>Race:</b>
+  <%= @race.race_id %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @race.category_id %>
+</p>
+
+<p>
+  <b>Results ready:</b>
+  <%= @race.results_ready %>
+</p>
+
+<p>
+  <b>Team time trial:</b>
+  <%= @race.team_time_trial %>
+</p>
+
+
+<%= link_to 'Edit', edit_race_path(@race) %> |
+<%= link_to 'Back', races_path %>

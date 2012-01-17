@@ -2,6 +2,7 @@ class Team < ActiveRecord::Base
   attr_accessor :budget
 
   belongs_to :user
+  has_many :race_teams
   has_and_belongs_to_many :riders
 
   validates :name,  :presence => true, 

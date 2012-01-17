@@ -1,4 +1,7 @@
 class TeamsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :admin, :only => [:destroy]  
+
   def index
     @teams = Team.all
   end

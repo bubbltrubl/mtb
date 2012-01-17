@@ -1,4 +1,7 @@
 class CyclingTeamsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :admin, :only => [:new, :create, :edit,:update,:destroy]
+
   def index
     @cycling_teams = CyclingTeam.all
   end

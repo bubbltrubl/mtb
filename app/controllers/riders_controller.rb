@@ -1,4 +1,7 @@
 class RidersController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :admin, :only => [:new, :create, :edit, :update, :destroy]
+
   # GET /riders
   # GET /riders.json
   def index

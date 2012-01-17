@@ -1,6 +1,6 @@
 class RaceTeamsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :admin => :only[:index,:destroy]
+  before_filter :admin, :only => [:index,:destroy]
   # GET /race_teams
   # GET /race_teams.json
   def index

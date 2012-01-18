@@ -1,0 +1,1 @@
+$("#all_riders").html("<%= escape_javascript(render(:partial => 'riders/choose', :locals => {:riders => @team.riders, :team => "race_team"}))%>");

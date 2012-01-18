@@ -8,17 +8,17 @@
   </thead>
   <tbody>
     <% @selected_riders.each_with_index do |rider,key| %>
-      <%= hidden_field_tag "team[riders][]", rider.id, :class => "selected_rider" %> 
+      <%= hidden_field_tag "#{team}[riders][]", rider.id, :class => "selected_rider" %> 
       <tr>
         <td><%= key + 1 %></td>
         <td class="rider_name"><span><%= rider.name %></span></td>
         <td><%= rider.cycling_team.short_name %></td>
         <td class="rider_value"><%= number_to_currency(rider.value, :unit => "€", :delimiter => " ",:precision => 0)%></td>
-        <td><%= link_to "Verwijder", "#", {:class => 'btn danger small remove_rider', 
+        <td><%= link_to "Verwijder", "#", {:class => "btn danger small remove_rider #{team}", 
                                            :id => "rider_#{rider.id}"} %></td>
       </tr>
     <% end %>
-    <% (@selected_riders.length+1..20).each do |rider| %>
+    <% (@selected_riders.length+1..riders_length).each do |rider| %>
       <tr>
         <td><%= rider%></td>
         <td>...</td>
@@ -29,4 +29,3 @@
     <% end %>
   </tbody>
 </table>
-

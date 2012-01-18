@@ -1,19 +1,27 @@
 Megatombike::Application.routes.draw do
-  resources :race_teams
+  post "race_teams/add_rider"
+  post "race_teams/remove_rider"
+  post "race_teams/update_chosen"
+ 
+  match "race_teams/new/:team_id/race/:race_id" => "race_teams#new", :via => :get
+  match "race_teams/:team_id/race/:race_id" => "race_teams#create", :via => :post
+  match "race_teams/edit/:team_id/race/:race_id" => "race_teams#new", :via => :get
+  match "race_teams/:team_id/race/:race_id" => "race_teams#update", :via => :put
 
+  resources :race_teams, :only => [:index, :show, :destroy]
   resources :categories
-
   resources :races
 
   post "teams/add_rider"
   post "teams/remove_rider"
+
   post "riders/search"
   get "subscribe/index"
+
   resources :riders
-
   resources :cycling_teams
-
   resources :teams, :only => [:index, :new, :create, :destroy]
+
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   # The priority is based upon order of creation:

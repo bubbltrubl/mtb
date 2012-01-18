@@ -19,13 +19,21 @@ jQuery ->
    params.riders = find_selected_riders()
    ajaxManager.add({type: 'post',data: params,success: null,url: '/riders/search'})
 
+  update_chosen = () ->
+   team_id = $("#race_team_team_id").val()
+   riders = find_selected_riders()
+   $.post('/race_teams/update_chosen',{team_id:team_id,riders: riders},null)
+
   get_rider_from_id = (str) -> return Number(str.replace("rider_",""))
 
   add_remove_rider = (event,el,add_or_remove) ->
    event.preventDefault()
    rider_id = get_rider_from_id(el.attr("id"))
    riders = find_selected_riders()
-   $.post('/teams/'+add_or_remove+'_rider', {rider_id: rider_id, riders: riders}, search_rider)
+   if(el.hasClass("team"))
+    $.post('/teams/'+add_or_remove+'_rider', {rider_id: rider_id, riders: riders}, search_rider)
+   else if(el.hasClass("race_team"))
+    $.post('/race_teams/'+add_or_remove+'_rider', {rider_id: rider_id, riders: riders}, update_chosen)
 
   style_team_budget = (el) ->
    if(Number(el.val()) < 0)

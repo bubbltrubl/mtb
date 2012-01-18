@@ -1,4 +1,5 @@
 class Team < ActiveRecord::Base
+  MAXIMUM_SIZE = 20
   attr_accessor :budget
 
   belongs_to :user
@@ -11,7 +12,7 @@ class Team < ActiveRecord::Base
                     :on => :create
 
   validates :budget, :numericality => {:greater_than_or_equal_to => 0 } 
-  validates :riders, :length => {:is => 2}
+  validates :riders, :length => {:is => MAXIMUM_SIZE}
   
   def self.calculate_budget(riders)
     budget = 2000000

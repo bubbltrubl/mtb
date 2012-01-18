@@ -35,16 +35,20 @@ class TeamsController < ApplicationController
     @selected_riders = make_selection(params,"add")
     @budget = Team.calculate_budget(@selected_riders)
     respond_to do |format|
-      format.js { render "teams/update_selection"}
-    end
+      format.js { render "shared/update_selection", 
+        :locals => {:team => "team", :riders_length => Team::MAXIMUM_SIZE}
+      }
+     end
   end
 
   def remove_rider
     @selected_riders = make_selection(params,"remove")
     @budget = Team.calculate_budget(@selected_riders)
     respond_to do |format|
-      format.js { render "teams/update_selection" }
-    end
+      format.js { render "shared/update_selection", 
+        :locals => {:team => "team", :riders_length => Team::MAXIMUM_SIZE}
+      }
+     end
   end
   
   private

@@ -11,15 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :race_id %><br />
-    <%= f.number_field :race_id %>
-  </div>
-  <div class="field">
-    <%= f.label :team_id %><br />
-    <%= f.number_field :team_id %>
+  <%= f.hidden_field :team_id %>
+  <%= f.hidden_field :race_id %>
+
+  <div class="row">
+    <div class="span9">
+      <div id="selected_riders">
+        <%= render :partial => "riders/selected", 
+              :locals => {:team => "race_team", :riders_length => RaceTeam::MAXIMUM_SIZE} %>
+     </div>
+    </div>
+    <div class="span7">
+      <div id="all_riders">
+        <%= render :partial => "riders/choose", 
+              :locals => {:riders => @team.riders, :team => "race_team"} %>  
+      </div>
+   </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Verder", :class => 'btn primary' %>
+    <%= f.submit "Maak leeg", :type => :reset, :class => 'btn' %>
   </div>
 <% end %>

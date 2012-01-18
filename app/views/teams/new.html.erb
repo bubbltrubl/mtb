@@ -34,7 +34,7 @@
   <div class="row">
     <div class="span9">
       <div id="selected_riders">
-        <%= render :partial => "riders/selected" %>
+        <%= render :partial => "riders/selected", :locals => {:team => 'team', :riders_length => Team::MAXIMUM_SIZE} %>
      </div>
     </div>
     <div class="span7">

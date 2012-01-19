@@ -88,8 +88,8 @@ class RidersController < ApplicationController
   
   def search
     @riders = Rider.search(params)
-    @selected_riders = []
-    params[:riders].each { |val| @selected_riders << val.to_i } unless params[:riders].nil?
+    @selected_riders_ids = []
+    params[:riders].each { |val| @selected_riders_ids << val.to_i } unless params[:riders].nil?
 
     respond_to do |format|
       format.js

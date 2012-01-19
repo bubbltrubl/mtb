@@ -30,7 +30,8 @@ class RaceTeamsController < ApplicationController
     @team = Team.find(params[:team_id])
     @race = Race.find(params[:race_id])
     @race_team = RaceTeam.new(:team_id => @team.id, :race_id => @race.id)
-    @selected_riders = {}
+    @selected_riders = []
+    @selected_riders_ids = []
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @race_team }
@@ -45,12 +46,18 @@ class RaceTeamsController < ApplicationController
   # POST /race_teams
   # POST /race_teams.json
   def create
-    @race_team = RaceTeam.new(params[:race_team])
+    @race_team = RaceTeam.new(:team_id => params[:team_id],
+                              :race_id => params[:race_id])
+    @race_team.riders = make_selection(params[:race_team])
+    @selected_riders = @race_team.riders
+    @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
     respond_to do |format|
       if @race_team.save
-        format.html { redirect_to @race_team, notice: 'Race team was successfully created.' }
+        format.html { redirect_to '/subscribe/finished', notice: 'Race team was successfully created.' }
         format.json { render json: @race_team, status: :created, location: @race_team }
       else
+        @team = Team.find(params[:team_id])
+        @race = Race.find(params[:race_id])
         format.html { render action: "new" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end
@@ -103,8 +110,8 @@ class RaceTeamsController < ApplicationController
 
   def update_chosen
     @team = Team.find(params[:team_id])
-    @selected_riders = []
-    params[:riders].each { |val| @selected_riders << val.to_i } unless params[:riders].nil?
+    @selected_riders_ids = []
+    params[:riders].each { |val| @selected_riders_ids << val.to_i } unless params[:riders].nil?
 
     respond_to do |format|
       format.js
@@ -117,7 +124,7 @@ class RaceTeamsController < ApplicationController
     riders_ids = convert_string_array_to_int_array(params[:riders]) unless params[:riders].nil?
     rider_id = convert_string_to_int(params[:rider_id]) unless params[:rider_id].nil?
     if add_or_remove == "add"
-      riders_ids << rider_id unless riders_ids.include?(rider_id)
+      riders_ids << rider_id unless (riders_ids.include?(rider_id) or riders_ids.length >= RaceTeam::MAXIMUM_SIZE)
     elsif add_or_remove == "remove"
       riders_ids.delete(rider_id) if riders_ids.include?(rider_id)
     end

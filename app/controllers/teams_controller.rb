@@ -9,7 +9,8 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
     @team.budget = 2000000
-    @selected_riders = {}
+    @selected_riders = []
+    @selected_riders_ids = [] 
   end
 
   def create
@@ -18,8 +19,9 @@ class TeamsController < ApplicationController
     @team.budget = Team.calculate_budget(@team.riders)
     @team.user = current_user
     @selected_riders = @team.riders
+    @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
     if @team.save
-      redirect_to root_url, :notice => "Succesfully created team."
+      redirect_to "/race_teams/new/#{@team.id}/race/1", :notice => "Succesfully created team."
     else
       render :action => 'new'
     end
@@ -57,7 +59,7 @@ class TeamsController < ApplicationController
     riders_ids = convert_string_array_to_int_array(params[:riders]) unless params[:riders].nil?
     rider_id = convert_string_to_int(params[:rider_id]) unless params[:rider_id].nil?
     if add_or_remove == "add"
-      riders_ids << rider_id unless riders_ids.include?(rider_id)
+      riders_ids << rider_id unless (riders_ids.include?(rider_id) or riders_ids.length >= Team::MAXIMUM_SIZE)
     elsif add_or_remove == "remove"
       riders_ids.delete(rider_id) if riders_ids.include?(rider_id)
     end

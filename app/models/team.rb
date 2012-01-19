@@ -8,11 +8,11 @@ class Team < ActiveRecord::Base
 
   validates :name,  :presence => true, 
                     :uniqueness => true, 
-                    :length => { :maximum => 100 }, 
-                    :on => :create
+                    :length => { :maximum => 100 },
+                    :on => :create 
 
   validates :budget, :numericality => {:greater_than_or_equal_to => 0 } 
-  validates :riders, :length => {:is => MAXIMUM_SIZE}
+  validates :riders, :length => {:is => 2}
   
   def self.calculate_budget(riders)
     budget = 2000000

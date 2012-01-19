@@ -17,6 +17,7 @@ Megatombike::Application.routes.draw do
 
   post "riders/search"
   get "subscribe/index"
+  get "subscribe/finished"
 
   resources :riders
   resources :cycling_teams

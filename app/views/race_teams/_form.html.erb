@@ -1,4 +1,5 @@
-<%= form_for(@race_team) do |f| %>
+<%= form_for @race_team, 
+              :url => "/race_teams/#{@race_team.team_id}/race/#{@race_team.race_id}" do |f| %>
   <% if @race_team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@race_team.errors.count, "error") %> prohibited this race_team from being saved:</h2>

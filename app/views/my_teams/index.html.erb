@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>Mijn ploegen <small>Creëer nieuwe wedstrijdploegen of wijzig ze</small></h1>
+</div>
+<% unless @teams.empty? %>
+  <p>
+    Kies een ploeg uit de lijst.<br/>
+    Of maak een <%= link_to "nieuwe ploeg", new_team_path %> aan.
+  </p>
+  <ul class="tabs">
+    <% @teams.each do |team| %>
+      <li><%= link_to team.name, "/my_teams/#{team.id}" %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>
+    Je hebt nog geen ploeg aangemaakt.<br/>
+  <p>  
+  <div class="row">
+    <div class="well span4 offset6">
+      <%= link_to 'Maak een ploeg aan', new_team_path, {:class => 'btn subscribe large'} %>
+    </div>
+  </div>
+<% end %>

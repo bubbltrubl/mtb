@@ -1,6 +1,7 @@
-<h1>Editing race_team</h1>
+<div class="page-header">
+  <h1>Wijzig je wedstrijdploeg</h1>
+</div>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => {:url => "/race_teams/#{@race_team.id}"} %>
 
-<%= link_to 'Show', @race_team %> |
 <%= link_to 'Back', race_teams_path %>

@@ -6,5 +6,5 @@ class RaceTeam < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :riders
 
-  validates :riders, :length => {:is => 2}
+  validates :riders, :length => {:is => MAXIMUM_SIZE}
 end

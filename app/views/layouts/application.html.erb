@@ -18,10 +18,10 @@
           <% unless user_signed_in? %>
             <li><%= link_to "Inschrijven", new_user_registration_path %></li>
           <% else %>
-            <li><%= link_to "Mijn ploegen", "#" %></li>
+            <li><%= link_to "Mijn ploegen", my_teams_path %></li>
           <% end %>
           <li><%= link_to "Reglement", "#" %></li>
-          <li><%= link_to "Kalender", "#"%></li>
+          <li><%= link_to "Kalender", races_path %></li>
         </ul>
         <% if user_signed_in? %>
           <div class="pull-right">

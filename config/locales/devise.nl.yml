@@ -1,0 +1,53 @@
+nl:
+  errors:
+    messages:
+      expired: "is verlopen, gelieve een nieuwe aan te vragen"
+      not_found: "niet gevonden"
+      already_confirmed: "is reeds bevestigd"
+      not_locked: "is niet gesloten"
+      not_saved:
+        one:  "1 fout gevonden zodat %{resource} niet opgeslagen kan worden:"
+        other: "%{count} fouten gevonden zodat %{resource} niet opgeslagen kan worden:"
+
+  devise:
+    failure:
+      already_authenticated: 'Je bent reeds ingelogd.'
+      unauthenticated: 'Je dient in te loggen of je in te schrijven.'
+      unconfirmed: 'Je dient eerst je account te bevestigen.'
+      locked: 'Je account is gelocked.'
+      invalid: 'Ongeldig e-mail of wachtwoord.'
+      invalid_token: 'Invalide authenticiteit token.'
+      timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
+      inactive: 'Je account is nog niet geactiveerd.'
+    sessions:
+      signed_in: 'Je bent succesvol ingelogd.'
+      signed_out: 'Je bent succesvol uitgelogd.'
+    passwords:
+      send_instructions: 'Je ontvangt via e-mail instructies hoe je je wachtwoord moet resetten.'
+      updated: 'Je wachtwoord is gewijzigd. Je bent nu ingelogd.'
+      updated_not_active: 'Je wachtwoord is gewijzigd.'
+      send_paranoid_instructions: "Als jou emailadres in onze databank zit, zal je een wachtwoordherstellink toegestuurd krijgen"
+    confirmations:
+      send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan bevestigen.'
+      confirmed: 'Je account is bevestigd.'
+      send_paranoid_instructions: "Als jou emailadres in onze databank zit, zal je een email ontvangen met instructies om je account te activeren."
+    registrations:
+      signed_up: 'Je bent inschreven.'
+      inactive_signed_up: 'Je bent ingeschreven. Je bent wel niet ingelogd omdat je account %{reason} is.' 
+      updated: 'Je account gegevens zijn opgeslagen.'
+      destroyed: 'Je account is verwijderd, wellicht tot ziens!'
+      reasons:
+        inactive: 'inactief'
+        unconfirmed: 'nog niet bevestigd'
+        locked: 'geblokkeerd'
+    unlocks:
+      send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan un-locken.'
+      unlocked: 'Je account is ge-unlocked. Je kan nu weer inloggen.'
+      send_paranoid_instructions: 'Als je account bestaat zal je een email ontvangen met instructies om je account te deblokkeren.'
+    mailer:
+      confirmation_instructions:
+        subject: 'Bevestiging'
+      reset_password_instructions:
+        subject: 'Wachtwoord resetten'
+      unlock_instructions:
+        subject: 'Unlock instructies'

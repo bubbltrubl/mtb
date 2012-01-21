@@ -1,39 +1,28 @@
-<h1>Listing races</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Date</th>
-    <th>End date</th>
-    <th>Is tour</th>
-    <th>Previous winner</th>
-    <th>Race</th>
-    <th>Category</th>
-    <th>Results ready</th>
-    <th>Team time trial</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @races.each do |race| %>
-  <tr>
-    <td><%= race.name %></td>
-    <td><%= race.date %></td>
-    <td><%= race.end_date %></td>
-    <td><%= race.is_tour %></td>
-    <td><%= race.previous_winner %></td>
-    <td><%= race.race_id %></td>
-    <td><%= race.category_id %></td>
-    <td><%= race.results_ready %></td>
-    <td><%= race.team_time_trial %></td>
-    <td><%= link_to 'Show', race %></td>
-    <td><%= link_to 'Edit', edit_race_path(race) %></td>
-    <td><%= link_to 'Destroy', race, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<div class="page-header">
+  <h1>Kalender</h1>
+</div>
+<br/>
+<table class="zebra-striped">
+  <thead>
+    <tr>
+      <th>Naam</th>
+      <th>Datum</th>
+      <th>Categorie</th>
+      <th>Vorige winnaar</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @races.each do |race| %>
+    <tr>
+      <td><%= race.name %></td>
+      <td><%= l race.date.to_date, :format => :short %><%= " - #{l(race.end_date.to_date, :format => :short)}" if race.is_tour %></td>
+      <td><%= race.category.name %></td>
+      <td><%= race.previous_winner %></td>
+    </tr>
+  <% end %>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Race', new_race_path %>
+<% if (current_user and current_user.admin?) %>
+  <br />
+  <%= link_to 'New Race', new_race_path %>
+<% end %>

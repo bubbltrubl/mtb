@@ -24,8 +24,8 @@ class RaceTeamsController < ApplicationController
     end
   end
 
-  # GET /race_teams/new/1
-  # GET /race_teams/new/1.json
+  # GET /race_teams/new/1/race/2
+  # GET /race_teams/new/1/race/2.json
   def new
     @team = Team.find(params[:team_id])
     @race = Race.find(params[:race_id])
@@ -41,10 +41,14 @@ class RaceTeamsController < ApplicationController
   # GET /race_teams/1/edit
   def edit
     @race_team = RaceTeam.find(params[:id])
+    @team = @race_team.team
+    @race = @race_team.race
+    @selected_riders = @race_team.riders
+    @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
   end
 
-  # POST /race_teams
-  # POST /race_teams.json
+  # POST /race_teams/1/race/2
+  # POST /race_teams/1/race/2.json
   def create
     @race_team = RaceTeam.new(:team_id => params[:team_id],
                               :race_id => params[:race_id])
@@ -68,11 +72,15 @@ class RaceTeamsController < ApplicationController
   # PUT /race_teams/1.json
   def update
     @race_team = RaceTeam.find(params[:id])
+    @selected_riders = make_selection(params[:race_team])
+    @selected_riders_ids = @selected_riders.collect { |rider| rider.id}
     respond_to do |format|
-      if @race_team.update_attributes(params[:race_team])
+      if @race_team.update_attributes(:riders => @selected_riders)
         format.html { redirect_to @race_team, notice: 'Race team was successfully updated.' }
         format.json { head :ok }
       else
+        @team = @race_team.team
+        @race = @race_team.race
         format.html { render action: "edit" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end

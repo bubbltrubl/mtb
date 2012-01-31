@@ -10,7 +10,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="topbar">
+  <div class="topbar" data-dropdown="dropdown">
     <div class="topbar-inner">
       <div class="container">
         <%= link_to "mega.tom.bike", root_path, :class => 'brand' %> 
@@ -18,7 +18,7 @@
           <% unless user_signed_in? %>
             <li><%= link_to "Inschrijven", new_user_registration_path %></li>
           <% else %>
-            <li><%= link_to "Mijn ploegen", my_teams_path %></li>
+            <%= render :partial => "my_teams/menu" %> 
           <% end %>
           <li><%= link_to "Reglement", "#" %></li>
           <li><%= link_to "Kalender", races_path %></li>

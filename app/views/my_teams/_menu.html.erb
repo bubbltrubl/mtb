@@ -1,0 +1,12 @@
+<li class="dropdown">
+  <%= link_to "Mijn ploegen", "#", :class => "dropdown-toggle" %>
+  <ul class="dropdown-menu">
+  <% unless @my_teams.empty? %>
+    <% @my_teams.each do |team| %>
+      <li><%= link_to team.name, "/my_teams/#{team.id}" %></li>
+    <% end %>
+    <li class="divider"></li>
+  <% end %>
+  <li><%= link_to 'Maak een ploeg aan', new_team_path %></li>
+  </ul>
+</li>

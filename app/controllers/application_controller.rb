@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :current_user_teams
+
   private
 
   def admin
@@ -9,4 +11,11 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
+
+  def current_user_teams
+    @my_teams = []
+    if current_user.try(:teams)
+      @my_teams = current_user.teams
+    end
+  end 
 end

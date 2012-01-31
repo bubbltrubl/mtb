@@ -1,5 +1,6 @@
 Megatombike::Application.routes.draw do
   resources :my_teams, :only => [:index]  
+  get "my_teams/:team_id/race/:race_id" => "my_teams#show"
   get "my_teams/:team_id" => "my_teams#show"
 
   post "race_teams/add_rider"

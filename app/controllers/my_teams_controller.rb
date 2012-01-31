@@ -7,8 +7,15 @@ class MyTeamsController < ApplicationController
   end
 
   def show
-    @teams = current_user.teams
+    @teams = current_user.teams.includes(:races)
     @team = @teams.select{|team| team.id.to_s == params[:team_id]}.first
     @races = Race.all #TODO: Race.race_or_tour
+    @editable_races = @races.reject { |race| not race.possible_to_make_race_team(@races) }
+    show_race_team_specific unless params[:race_id].nil?
+  end
+
+  private
+  def show_race_team_specific
+    @race_team = RaceTeam.get_by_team_and_race(@team.id, params[:race_id])
   end
 end

@@ -1,0 +1,20 @@
+<table class="condensed-table">
+  <thead>
+    <th>Renner</th>
+    <th>Ploeg</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @team.riders.each do |rider| %>
+      <tr>
+        <td class="rider_name"><span><%= rider.name %></span></td>
+        <td><span><%= rider.cycling_team.short_name %></span></td>
+        <td>
+          <% if @race_team.riders.include?(rider) %>
+            <span class="label success">in selectie</span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 

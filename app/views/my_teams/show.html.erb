@@ -26,13 +26,15 @@
           <td><%= race.name %></td>
           <td><%= l race.date.to_date, :format => :short %><%= " - #{l(race.end_date.to_date, :format => :short)}" if race.is_tour %></td>
           <td>
-            <%= link_to "Bekijk", "#", :class => 'btn small' %>
+            <%= link_to "Bekijk", "/my_teams/#{@team.id}/race/#{race.id}", :class => 'btn small'%>
           </td>
           <td>
-            <% if @team.has_race_team_for(race) %>
-              <%= link_to "Wijzig", "#", :class => 'btn info small' %>
-            <% else %>
-              <%= link_to "Creëer", "#", :class => 'btn success small' %>
+            <% if @editable_races.include?(race) %>
+              <% if @team.has_race_team_for(race) %>
+                <%= link_to "Wijzig", "#", :class => 'btn info small' %>
+              <% else %>
+                <%= link_to "Creëer", "#", :class => 'btn success small' %>
+              <% end %>
             <% end %>
           </td>
         </tr>
@@ -40,7 +42,7 @@
       </tbody>
     </table>
   </div>
-  <div class="span8">
-    Hier team
+  <div id="my_team_riders" class="span8">
+    <%= render :partial => "my_teams/show_race_team" if @race_team %> 
   </div>
 </div>

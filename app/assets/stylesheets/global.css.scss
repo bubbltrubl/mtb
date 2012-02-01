@@ -94,3 +94,18 @@ form .input.no-margin-input {
 .ui-autocomplete-loading { 
   background: url("indicator.gif") no-repeat scroll right center white;
 }
+
+.topbar div > ul .menu-dropdown, .nav .menu-dropdown, .topbar div > ul .dropdown-menu, .nav .dropdown-menu {
+  background-color: #DC5342;
+  .divider {
+    background-color: #DD4B39;
+    border-color: #D14836;
+  }
+  li a {
+    color: #FFF;
+    &:hover {
+      background-color: #DD4B39;
+      @include bottom-top-gradient(#DD4B39,#D14836);
+    }
+  }
+}

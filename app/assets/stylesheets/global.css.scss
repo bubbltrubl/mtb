@@ -109,3 +109,31 @@ form .input.no-margin-input {
     }
   }
 }
+
+#error_explanation {
+  background-color: #FDDFDE;
+  border-color: #FBC7C6;
+  color: #404040;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-image: none;
+  box-shadow: none;
+  padding: 14px;
+  background-repeat: repeat-x;
+  border-radius: 4px 4px 4px 4px;
+  border-style: solid;
+  border-width: 1px;
+  margin-bottom: 18px;
+  position: relative;
+  h2 {
+    font-size: 13px;
+    line-height: 1;
+  }
+  ul {
+    margin-left: 30px;
+    list-style: disc outside none;
+    margin-bottom: 0;
+    li {
+      line-height: 18px;
+    }
+  }
+}

@@ -16,12 +16,21 @@ class RaceTeam < ActiveRecord::Base
   end
 
   def self.get_by_team_and_race(team_id,race_id)
-    race_team = RaceTeam.where("race_id = :race_id AND team_id = :team_id", {:race_id => race_id, :team_id => team_id}).first
+    race_team = RaceTeam.where(race_id: race_id, team_id: team_id).limit(1).first
     if race_team.nil?
       race = Race.find(race_id)
-      race_team = RaceTeam.where("team_id = :team_id AND races.date < :date",{:team_id => team_id, :date => race.date}).includes(:race).order("races.date DESC").first
-      race_team = race_team.opposite unless race.possible_to_make_race_team(Race.all)
+      race_team = RaceTeam.where("team_id = :team_id AND races.date < :date",
+                          {:team_id => team_id, :date => race.date})
+                          .joins(:race).order("races.date DESC").limit(1).first
+      race_team = race_team.load_dependencies
+      race_team = race_team.opposite unless race.possible_to_make_race_team(Race.all_except_stages)
+    else
+      race_team = race_team.load_dependencies
     end
     race_team 
+  end
+
+  def load_dependencies
+    return RaceTeam.where(id: id).includes(:race,{:riders => :cycling_team}).limit(1).first
   end
 end

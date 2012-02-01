@@ -1,6 +1,6 @@
 <div class="page-header">
-  <h1>Maak een wedstrijdploeg aan <small>Selecteer 10 renners</small></h1>
+  <h1>Maak een wedstrijdploeg aan <small>voor <%= @race_team.race.name %></small></h1>
 </div>
 
 <%= render  :partial => 'form', 
-            :locals => {:url => "/race_teams/#{@race_team.team_id}/race/#{@race_team.race_id}"} %>
+            :locals => {:url => "/race_teams/#{@race_team.team_id}/race/#{@race_team.race_id}#{@redirect_to_my_teams}"} %>

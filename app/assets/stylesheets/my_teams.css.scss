@@ -9,8 +9,30 @@ table.bordered-table tbody {
   tr.odd:hover td, tr.even:hover td {
     background-color: #EAEAEA;
   }
+
+  tr.odd.selected td, tr.even.selected td, 
+  tr.odd.selected:hover td, tr.even.selected:hover td {
+    background-color: #CFCFCF;
+  }
 }
 
 #my_team_riders table tbody td span{
   line-height: 20px;
+}
+
+.left_floater {
+  float: left;
+}
+
+.right_floater {
+  float: right;
+}
+
+.btn.small.thin {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.align_with_header {
+  margin-top: 5px;
 }

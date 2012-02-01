@@ -7,7 +7,9 @@ Megatombike::Application.routes.draw do
   post "race_teams/remove_rider"
   post "race_teams/update_chosen"
  
+  match "race_teams/new/:team_id/race/:race_id/:rdtmt" => "race_teams#new", :via => :get
   match "race_teams/new/:team_id/race/:race_id" => "race_teams#new", :via => :get
+  match "race_teams/:team_id/race/:race_id/:rdtmt" => "race_teams#create", :via => :post
   match "race_teams/:team_id/race/:race_id" => "race_teams#create", :via => :post
 
   resources :race_teams, :only => [:edit,:update,:index, :show, :destroy]

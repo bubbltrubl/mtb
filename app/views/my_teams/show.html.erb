@@ -22,7 +22,9 @@
       <% race_classes = ["even","odd"] %>
       <% @races.each do |race| %>
         <% race_classes.reverse! if @team.has_race_team_for(race)%>
-        <tr class="<%= race_classes.first %>">
+        <% selected = "" %>
+        <% selected = " selected"if (@race and @race == race) %>
+        <tr class="<%= race_classes.first %><%= selected %>">
           <td><%= race.name %></td>
           <td><%= l race.date.to_date, :format => :short %><%= " - #{l(race.end_date.to_date, :format => :short)}" if race.is_tour %></td>
           <td>
@@ -31,9 +33,9 @@
           <td>
             <% if @editable_races.include?(race) %>
               <% if @team.has_race_team_for(race) %>
-                <%= link_to "Wijzig", "#", :class => 'btn info small' %>
+                <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small' %>
               <% else %>
-                <%= link_to "Creëer", "#", :class => 'btn success small' %>
+                <%= link_to "Creëer", "/race_teams/new/#{@team.id}/race/#{race.id}/rdtmt", :class => 'btn success small' %>
               <% end %>
             <% end %>
           </td>

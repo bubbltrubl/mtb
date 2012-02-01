@@ -15,6 +15,10 @@ class Race < ActiveRecord::Base
   def overlaps_with(other_race)
     (Race.date_between(other_race.date,date,end_date) or Race.date_between(other_race.end_date,date,end_date)) 
   end
+  
+  def self.all_except_stages
+    return Race.where(race_id: nil).all
+  end
  
   private
   def self.date_between(other_date,begin_date,end_date)

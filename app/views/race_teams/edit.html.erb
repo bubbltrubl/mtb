@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Wijzig je wedstrijdploeg</h1>
+  <h1>Wijzig je wedstrijdploeg <small>voor <%= @race_team.race.name %></small></h1>
 </div>
 
 <%= render :partial => 'form', :locals => {:url => "/race_teams/#{@race_team.id}"} %>

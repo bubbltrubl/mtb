@@ -27,6 +27,7 @@ class RaceTeamsController < ApplicationController
   # GET /race_teams/new/1/race/2
   # GET /race_teams/new/1/race/2.json
   def new
+    @redirect_to_my_teams = !params[:rdtmt].nil? ? "/rdtmt" : ""
     @team = Team.find(params[:team_id])
     @race = Race.find(params[:race_id])
     @race_team = RaceTeam.new(:team_id => @team.id, :race_id => @race.id)
@@ -50,6 +51,7 @@ class RaceTeamsController < ApplicationController
   # POST /race_teams/1/race/2
   # POST /race_teams/1/race/2.json
   def create
+    @redirect_to_my_teams = !params[:rdtmt].nil? ? "/rdtmt" : ""
     @race_team = RaceTeam.new(:team_id => params[:team_id],
                               :race_id => params[:race_id])
     @race_team.riders = make_selection(params[:race_team])
@@ -57,7 +59,15 @@ class RaceTeamsController < ApplicationController
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
     respond_to do |format|
       if @race_team.save
-        format.html { redirect_to '/subscribe/finished', notice: 'Race team was successfully created.' }
+        format.html { 
+          if @redirect_to_my_teams == "/rdtmt"
+            redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}",
+                        notice: 'Wedstrijdploeg is met succes aangemaakt.'
+          else
+            redirect_to '/subscribe/finished', 
+                        notice: 'Wedstrijdploeg is met succes aangemaakt.' 
+          end
+        }
         format.json { render json: @race_team, status: :created, location: @race_team }
       else
         @team = Team.find(params[:team_id])
@@ -76,7 +86,7 @@ class RaceTeamsController < ApplicationController
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id}
     respond_to do |format|
       if @race_team.update_attributes(:riders => @selected_riders)
-        format.html { redirect_to @race_team, notice: 'Race team was successfully updated.' }
+        format.html { redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}", notice: 'De wedstrijdploeg is met succes gewijzigd.' }
         format.json { head :ok }
       else
         @team = @race_team.team

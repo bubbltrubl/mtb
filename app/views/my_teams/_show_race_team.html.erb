@@ -1,3 +1,13 @@
+<h6 class="left_floater"><%= @race.name %></h6>
+<% if @editable_races.include?(@race) %>
+  <% if @team.has_race_team_for(@race) %>
+    <%= link_to "Wijzig deze wedstrijdploeg", edit_race_team_path(@team.get_race_team_for(@race)), :class => 'btn info small thin right_floater align_with_header' %>
+  <% else %>
+    <%= link_to "Creëer een wedstrijdploeg voor deze wedstrijd", "/race_teams/new/#{@team.id}/race/#{@race.id}/rdtmt", :class => 'btn success small thin right_floater align_with_header' %>
+  <% end %>
+<% else %>
+  <span class="label important right_floater align_with_header">Niet aanpasbaar</span>
+<% end %>
 <table class="condensed-table">
   <thead>
     <th>Renner</th>

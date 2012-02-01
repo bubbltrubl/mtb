@@ -27,13 +27,19 @@
       </div>
   </div>
   </section>
-  <section id="subscribe">
-    <div class="container">
-      <div class="row">
-        <div class="well span4 offset6">
-          <%= link_to 'Inschrijven', new_user_registration_path, {:class => 'btn subscribe large'} %>
+  <% if current_user.nil? or @my_teams.empty? %>
+    <section id="subscribe">
+      <div class="container">
+        <div class="row">
+          <div class="well span4 offset6">
+          <% if current_user and @my_teams.empty? %>
+              <%= link_to 'Maak een ploeg aan', new_team_path, {:class => 'btn subscribe large'} %>
+            <% else %>
+              <%= link_to 'Inschrijven', new_user_registration_path, {:class => 'btn subscribe large'} %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <% end %>
 </div>

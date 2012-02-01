@@ -10,7 +10,7 @@
   </div>
   <div class="field">
     <%= f.label :cycling_team_id %><br />
-    <%= f.collection_select(:cycling_team_id, @cycling_teams, :id, :name, :prompt => 'Selecteer ...') %>
+    <%= f.collection_select(:cycling_team_id, CyclingTeam.all, :id, :name, :prompt => 'Selecteer ...') %>
   </div>
   <div class="actions">
     <%= f.submit %>

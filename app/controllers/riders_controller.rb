@@ -28,7 +28,6 @@ class RidersController < ApplicationController
   # GET /riders/new.json
   def new
     @rider = Rider.new
-    @cycling_teams = CyclingTeam.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,7 +38,6 @@ class RidersController < ApplicationController
   # GET /riders/1/edit
   def edit
     @rider = Rider.find(params[:id])
-    @cycling_teams = CyclingTeam.all
   end
 
   # POST /riders

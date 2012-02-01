@@ -4,6 +4,10 @@ class Race < ActiveRecord::Base
   has_many :races
   has_many :race_teams
 
+  validates :name, :presence => true
+  validates :previous_winner, :presence => true
+  validates :category, :presence => true
+
   def possible_to_make_race_team(races)
     races.index { |other_race| other_race.id != self.id and other_race.overlaps_with(self) and other_race.starts_before(self)}.nil?
   end

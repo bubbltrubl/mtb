@@ -1,5 +1,8 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 nl:
+  error:
+    one: fout
+    other: fouten
   not_allowed: "U bent niet gemachtigd om deze pagina te bezoeken"
   successfull_created_team: "Ploeg succesvol opgeslagen"
   successfull_updated_team: "Ploeg succesvol gewijzigd"

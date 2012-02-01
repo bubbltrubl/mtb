@@ -6,10 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def admin
-    unless current_user.try(:admin?)
-      redirect_to :root, :notice => "Je hebt niet genoeg rechten om deze pagina te bezoeken"
-      return false
-    end
+    not_allowed_to_view unless current_user.try(:admin?)
   end
 
   def current_user_teams
@@ -18,4 +15,9 @@ class ApplicationController < ActionController::Base
       @my_teams = current_user.teams
     end
   end 
+
+  def not_allowed_to_view
+    redirect_to :root, :alert => "Je hebt niet genoeg rechten om deze pagina te bezoeken"
+    return false
+  end
 end

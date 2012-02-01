@@ -12,7 +12,7 @@ Megatombike::Application.routes.draw do
   match "race_teams/:team_id/race/:race_id/:rdtmt" => "race_teams#create", :via => :post
   match "race_teams/:team_id/race/:race_id" => "race_teams#create", :via => :post
 
-  resources :race_teams, :only => [:edit,:update,:index, :show, :destroy]
+  resources :race_teams, :only => [:edit,:update,:index, :destroy]
   resources :categories
   resources :races
 

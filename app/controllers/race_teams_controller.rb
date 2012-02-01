@@ -13,22 +13,14 @@ class RaceTeamsController < ApplicationController
     end
   end
 
-  # GET /race_teams/1
-  # GET /race_teams/1.json
-  def show
-    @race_team = RaceTeam.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @race_team }
-    end
-  end
-
   # GET /race_teams/new/1/race/2
   # GET /race_teams/new/1/race/2.json
   def new
     @redirect_to_my_teams = !params[:rdtmt].nil? ? "/rdtmt" : ""
-    @team = Team.find(params[:team_id])
+    @team = Team.where(id: params[:team_id], user_id: current_user.id).limit(1).first
+    if @team.nil?
+      not_allowed_to_view; return false;
+    end
     @race = Race.find(params[:race_id])
     @race_team = RaceTeam.new(:team_id => @team.id, :race_id => @race.id)
     @selected_riders = []
@@ -43,6 +35,9 @@ class RaceTeamsController < ApplicationController
   def edit
     @race_team = RaceTeam.find(params[:id])
     @team = @race_team.team
+    unless @team.user == current_user
+      not_allowed_to_view; return false;
+    end
     @race = @race_team.race
     @selected_riders = @race_team.riders
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
@@ -54,6 +49,9 @@ class RaceTeamsController < ApplicationController
     @redirect_to_my_teams = !params[:rdtmt].nil? ? "/rdtmt" : ""
     @race_team = RaceTeam.new(:team_id => params[:team_id],
                               :race_id => params[:race_id])
+    unless Team.find(params[:team_id]).user == current_user
+      not_allowed_to_view; return false;
+    end
     @race_team.riders = make_selection(params[:race_team])
     @selected_riders = @race_team.riders
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
@@ -82,6 +80,9 @@ class RaceTeamsController < ApplicationController
   # PUT /race_teams/1.json
   def update
     @race_team = RaceTeam.find(params[:id])
+    unless @race_team.team.user == current_user
+      not_allowed_to_view; return false;
+    end
     @selected_riders = make_selection(params[:race_team])
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id}
     respond_to do |format|

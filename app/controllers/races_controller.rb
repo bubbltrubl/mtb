@@ -1,6 +1,6 @@
 class RacesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :admin, :only => [:new, :create, :edit,:update,:destroy]
+  before_filter :admin, :only => [:show, :new, :create, :edit,:update,:destroy]
 
   # GET /races
   # GET /races.json

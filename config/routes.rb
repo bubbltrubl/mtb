@@ -1,4 +1,6 @@
 Megatombike::Application.routes.draw do
+  get "pages/reglement"
+
   resources :my_teams, :only => [:index]  
   get "my_teams/:team_id/race/:race_id" => "my_teams#show"
   get "my_teams/:team_id" => "my_teams#show"

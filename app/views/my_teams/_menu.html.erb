@@ -1,4 +1,4 @@
-<li class="dropdown">
+<li class="dropdown<%= ' active' if params[:controller] == 'my_teams' %>">
   <%= link_to "Mijn ploegen", "#", :class => "dropdown-toggle" %>
   <ul class="dropdown-menu">
   <% unless @my_teams.empty? %>

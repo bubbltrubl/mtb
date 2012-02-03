@@ -20,10 +20,10 @@
           <% else %>
             <%= render :partial => "my_teams/menu" %> 
           <% end %>
-          <li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'reglement') %>">
-            <%= link_to "Reglement", pages_reglement_path %>
+          <li class="<%= 'active' if params[:controller] == 'subscribe' and params[:action] == 'reglement' %>">
+            <%= link_to "Reglement", subscribe_reglement_path %>
           </li>
-          <li class="<%= 'active' if current_page?(:controller => 'races', :action => 'index') %>">
+          <li class="<%= 'active' if params[:controller] ==  'races' and params[:action] == 'index' %>">
             <%= link_to "Kalender", races_path %>
           </li>
         </ul>

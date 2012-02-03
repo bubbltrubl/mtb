@@ -1,6 +1,4 @@
 Megatombike::Application.routes.draw do
-  get "pages/reglement"
-
   resources :my_teams, :only => [:index]  
   get "my_teams/:team_id/race/:race_id" => "my_teams#show"
   get "my_teams/:team_id" => "my_teams#show"
@@ -24,6 +22,7 @@ Megatombike::Application.routes.draw do
   post "riders/search"
   get "subscribe/index"
   get "subscribe/finished"
+  get "subscribe/reglement"
 
   resources :riders
   resources :cycling_teams

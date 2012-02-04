@@ -22,6 +22,10 @@ class RaceTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @race = Race.find(params[:race_id])
+    unless @race.can_make_race_team?
+      redirect_to :back, :alert => "Je kan voor deze wedstrijd geen ploeg meer aanmaken"
+      return false;
+    end
     @race_team = RaceTeam.new(:team_id => @team.id, :race_id => @race.id)
     @selected_riders = []
     @selected_riders_ids = []
@@ -39,6 +43,10 @@ class RaceTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @race = @race_team.race
+    unless @race.can_make_race_team?
+      redirect_to :back, :alert => "Je kan deze wedstrijdploeg niet meer wijzigen"
+      return false
+    end 
     @selected_riders = @race_team.riders
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
   end
@@ -51,6 +59,11 @@ class RaceTeamsController < ApplicationController
                               :race_id => params[:race_id])
     unless Team.find(params[:team_id]).user == current_user
       not_allowed_to_view; return false;
+    end
+    @race = Race.find(params[:race_id])
+    unless @race.can_make_race_team?
+      redirect_to :root, :alert => "Je kan voor deze wedstrijd geen ploeg meer aanmaken"
+      return false;
     end
     @race_team.riders = make_selection(params[:race_team])
     @selected_riders = @race_team.riders
@@ -69,7 +82,6 @@ class RaceTeamsController < ApplicationController
         format.json { render json: @race_team, status: :created, location: @race_team }
       else
         @team = Team.find(params[:team_id])
-        @race = Race.find(params[:race_id])
         format.html { render action: "new" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end
@@ -83,6 +95,11 @@ class RaceTeamsController < ApplicationController
     unless @race_team.team.user == current_user
       not_allowed_to_view; return false;
     end
+    @race = @race_team.race
+    unless @race.can_make_race_team?
+      redirect_to :root, :alert => "Je kan deze wedstrijdploeg niet meer wijzigen"
+      return false
+    end 
     @selected_riders = make_selection(params[:race_team])
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id}
     respond_to do |format|
@@ -91,7 +108,6 @@ class RaceTeamsController < ApplicationController
         format.json { head :ok }
       else
         @team = @race_team.team
-        @race = @race_team.race
         format.html { render action: "edit" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end

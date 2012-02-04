@@ -1,14 +1,16 @@
 <h6 class="left_floater"><%= @race.name %></h6>
-<% if @editable_races.include?(@race) %>
-  <% if @team.has_race_team_for(@race) %>
-    <%= link_to "Wijzig deze wedstrijdploeg", edit_race_team_path(@team.get_race_team_for(@race)), :class => 'btn info small thin right_floater align_with_header', 
-        :rel => 'popover', 'data-content' => "Hiermee wijzig je de reeds aangemaakte wedstrijdploeg voor #{@race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Wijzig wedstrijdploeg'%>
+<% if @race.can_make_race_team? %>
+  <% if @editable_races.include?(@race) %>
+    <% if @team.has_race_team_for(@race) %>
+      <%= link_to "Wijzig deze wedstrijdploeg", edit_race_team_path(@team.get_race_team_for(@race)), :class => 'btn info small thin right_floater align_with_header', 
+          :rel => 'popover', 'data-content' => "Hiermee wijzig je de reeds aangemaakte wedstrijdploeg voor #{@race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Wijzig wedstrijdploeg'%>
+    <% else %>
+      <%= link_to "Creëer een wedstrijdploeg", "/race_teams/new/#{@team.id}/race/#{@race.id}/rdtmt", :class => 'btn success small thin right_floater align_with_header',
+          :rel => 'popover', 'data-content' => "Hiermee maak je een nieuwe wedstrijdploeg aan voor #{@race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Creëer wedstrijdploeg'%>
+    <% end %>
   <% else %>
-    <%= link_to "Creëer een wedstrijdploeg", "/race_teams/new/#{@team.id}/race/#{@race.id}/rdtmt", :class => 'btn success small thin right_floater align_with_header',
-        :rel => 'popover', 'data-content' => "Hiermee maak je een nieuwe wedstrijdploeg aan voor #{@race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Creëer wedstrijdploeg'%>
-  <% end %>
-<% else %>
-  <span class="popover-label label important right_floater align_with_header"rel="popover" data-original-title="Niet aanpasbaar" data-content="Deze wedstrijd valt samen met een andere wedstrijd. Deze ploeg zal de overige 10 renners bevatten. Meer info vind je in het reglement">let op</span><% end %>
+    <span class="popover-label label important right_floater align_with_header"rel="popover" data-original-title="Niet aanpasbaar" data-content="Deze wedstrijd valt samen met een andere wedstrijd. Deze ploeg zal de overige 10 renners bevatten. Meer info vind je in het reglement">let op</span><% end %>
+<% end %>
 <table class="condensed-table">
   <thead>
     <th>Renner</th>

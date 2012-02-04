@@ -22,7 +22,7 @@
       </thead>
       <tbody>
       <% race_classes = ["even","odd"] %>
-      <% @races.each_with_index do |race,count| %>
+      <% @races.each do |race| %>
         <% race_classes.reverse! if @team.has_race_team_for(race)%>
         <% selected = "" %>
         <% selected = " selected"if (@race and @race == race) %>
@@ -35,7 +35,7 @@
             </td>
           <% end %>
           <td>
-            <% if (!@team.race_teams.empty? or count == 0) %>
+            <% if (!@team.race_teams.empty? or race == @first_possible_race) and race.can_make_race_team? %>
               <% if @editable_races.include?(race) %>
                 <% if @team.has_race_team_for(race) %>
                   <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small', 

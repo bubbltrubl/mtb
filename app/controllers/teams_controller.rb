@@ -31,7 +31,8 @@ class TeamsController < ApplicationController
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
     get_cycling_teams
     if @team.save
-      redirect_to "/race_teams/new/#{@team.id}/race/1", :notice => "Je ploeg is met succes opgeslagen."
+      first_race = Race.first_possible_race
+      redirect_to "/race_teams/new/#{@team.id}/race/#{first_race.id}", :notice => "Je ploeg is met succes opgeslagen."
     else
       render :action => 'new'
     end

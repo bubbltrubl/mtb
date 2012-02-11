@@ -212,8 +212,10 @@ nl:
           username: "Gebruikersnaam"
           email: "Email"
           password: "Wachtwoord"
+          current_password: "Huidig wachtwoord"
           password_confirmation: "Wachtwoord bevestiging"
           avatar: "Afbeelding"
+          remember_me: "Onthouden"
         cycling_team:
             name: "Naam"
         rider:

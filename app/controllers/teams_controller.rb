@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
     @selected_riders = @team.riders
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
     if @team.save
-      redirect_to "/race_teams/new/#{@team.id}/race/1", :notice => "Succesfully created team."
+      redirect_to "/race_teams/new/#{@team.id}/race/1", :notice => "Je ploeg is met succes opgeslagen."
     else
       render :action => 'new'
     end
@@ -30,7 +30,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find(params[:id])
     @team.destroy
-    redirect_to teams_url, :notice => "Succesfully destroyed cycling team."
+    redirect_to teams_url, :notice => "Je ploeg is met succes verwijderd."
   end
 
   def add_rider

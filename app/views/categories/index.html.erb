@@ -1,27 +1,16 @@
-<h1>Listing categories</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Nr of riders</th>
-    <th>Points</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @categories.each do |category| %>
+<table class="bordered-table zebra-striped">
+  <thead>
+    <th>Categorie</th>
+    <th># Beloonde renners</th>
+    <th>Puntenverdeling</th>
+  </thead>
+  <tbody>
+<% Category.all.each do |category| %>
   <tr>
     <td><%= category.name %></td>
     <td><%= category.nr_of_riders %></td>
     <td><%= category.points %></td>
-    <td><%= link_to 'Show', category %></td>
-    <td><%= link_to 'Edit', edit_category_path(category) %></td>
-    <td><%= link_to 'Destroy', category, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
+  </tbody>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Category', new_category_path %>

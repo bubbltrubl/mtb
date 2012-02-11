@@ -177,3 +177,12 @@ form .input.no-margin-input {
   color: #195F91;
   font-weight: bold;
 }
+
+.topbar div > ul a.icon-off, .nav a.icon-off {
+  display: block;
+  width: 14px;
+  height: 14px;
+  background: url('glyphicons-halflings-white.png') no-repeat -384px 0;
+  padding: 0;
+  margin: 12px 10px 11px;
+}

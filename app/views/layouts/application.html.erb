@@ -31,7 +31,10 @@
           <div class="pull-right">
             <ul>
               <li>
-                <%= link_to "Uitloggen", destroy_user_session_path, :method => :delete %>
+                <%= link_to "Mijn profiel", edit_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to "", destroy_user_session_path, :method => :delete, :class => 'icon-off' %>
               </li>
             </ul>
           </div>

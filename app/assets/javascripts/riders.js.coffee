@@ -10,12 +10,16 @@ jQuery ->
    $(".selected_rider").each -> riders.push(Number($(this).val()))
    return riders
 
-  search_rider = () ->
+  search_rider = (loading) ->
    val = $("#search_name").val()
-   $("#search_name").addClass('ui-autocomplete-loading')
+   max = Number($("#search_max").val())
+   if (loading == true)
+    $("#search_name,#search_max").addClass('ui-autocomplete-loading')
    params = {}
    if(val != null && val != "" && val.length != 0)
     params.name = val
+   if(max != null && !isNaN(max) && max > 0)
+    params.max = max
    params.riders = find_selected_riders()
    ajaxManager.add({type: 'post',data: params,success: null,url: '/riders/search'})
 
@@ -30,6 +34,10 @@ jQuery ->
    event.preventDefault()
    rider_id = get_rider_from_id(el.attr("id"))
    riders = find_selected_riders()
+   if(add_or_remove == "add")
+    $(el).remove()
+   $("#selected_riders table").addClass("overlay")
+   $("#selected_riders .loading").show()
    if(el.hasClass("team"))
     $.post('/teams/'+add_or_remove+'_rider', {rider_id: rider_id, riders: riders}, search_rider)
    else if(el.hasClass("race_team"))
@@ -42,6 +50,6 @@ jQuery ->
     el.parents(".clearfix").first().removeClass("error")
   $(".remove_rider").live 'click', (event) -> add_remove_rider(event, $(this), 'remove')
   $(".add_rider").live 'click', (event) -> add_remove_rider(event, $(this), 'add')
-  $("#search_name").keyup -> search_rider()
+  $("#search_name, #search_max").keyup -> search_rider(true)
   $("#team_budget").change -> style_team_budget($(this))
   $("#team_budget").trigger 'change'

@@ -1,5 +1,6 @@
 <% if model.errors.any? %>
   <div id="error_explanation">
+    <a class="close" href="#">×</a>
     <strong><%= model.errors.count %> <%= I18n.translate :error, :count => model.errors.count %> gevonden:</strong>
     <ul>
     <% model.errors.full_messages.each do |msg| %>

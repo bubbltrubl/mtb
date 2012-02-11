@@ -11,4 +11,4 @@
   $("#search_message").html('');
   $("#all_riders").html("<%= escape_javascript(render(:partial => 'riders/choose', :locals => {:riders => @riders, :team => "team"}))%>");
 <% end %>
-$("#search_name").removeClass('ui-autocomplete-loading');
+$("#search_name,#search_max").removeClass('ui-autocomplete-loading');

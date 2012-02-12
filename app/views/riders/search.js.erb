@@ -4,11 +4,11 @@
 <% elsif @riders.empty? %>
   $("#all_riders").html("");
   $("#search_message").html('Geen resultaten gevonden');
-<% elsif(@riders.length > 30) %>
+<% elsif(@riders.length > 40) %>
   $("#all_riders").html("");
   $("#search_message").html('Te veel resultaten gevonden. Probeer uw zoekopdracht te verfijnen');
 <% else %>
   $("#search_message").html('');
   $("#all_riders").html("<%= escape_javascript(render(:partial => 'riders/choose', :locals => {:riders => @riders, :team => "team"}))%>");
 <% end %>
-$("#search_name,#search_max").removeClass('ui-autocomplete-loading');
+$("#search_name").removeClass('ui-autocomplete-loading');

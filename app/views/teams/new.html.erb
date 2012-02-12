@@ -32,6 +32,9 @@
         <div class="clearfix">
           <div class="input no-margin-input">
             <%= search_field_tag "name", nil, {:id => "search_name", :class => 'leftfloater' ,:placeholder => "Naam ...", :autocomplete => 'off'} %>
+            <%= label_tag "search_min", "Min:", :id => "search_min_label" %>
+            <%= search_field_tag "min", nil, {:id => "search_min", :placeholder => "Minimale prijs ...", :autocomplete => 'off'} %>
+            <%= select_tag "cycling_team", options_from_collection_for_select(@cycling_teams, :id,:name)%>
             <%= label_tag "search_max", "Max:", :id => "search_max_label" %>
             <%= search_field_tag "max", nil, {:id => "search_max", :placeholder => "Maximale prijs ...", :autocomplete => 'off'} %>
           <span class="help-block" id="search_message">Zoek een renner...</span>

@@ -11,6 +11,7 @@ class TeamsController < ApplicationController
     @team.budget = 2000000
     @selected_riders = []
     @selected_riders_ids = [] 
+    get_cycling_teams
   end
 
   def create
@@ -20,6 +21,7 @@ class TeamsController < ApplicationController
     @team.user = current_user
     @selected_riders = @team.riders
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
+    get_cycling_teams
     if @team.save
       redirect_to "/race_teams/new/#{@team.id}/race/1", :notice => "Je ploeg is met succes opgeslagen."
     else
@@ -82,5 +84,11 @@ class TeamsController < ApplicationController
 
   def convert_string_to_int(str)
     str.to_i
+  end
+
+  def get_cycling_teams
+    @cycling_teams = []
+    @cycling_teams << CyclingTeam.new(:name => "Alle ploegen")
+    CyclingTeam.where(:active => true).order("name ASC").all.each { |team| @cycling_teams << team }
   end
 end

@@ -138,11 +138,11 @@ form .input.no-margin-input {
   }
 }
 
-#search_name {
+#search_name, #cycling_team {
   float: left;
 }
 
-#search_max {
+#search_max, #search_min {
   float: left;
   clear: right;
   width: 100px;
@@ -152,11 +152,19 @@ form .input.no-margin-input {
   clear: both;
 }
 
-#search_max_label {
+#search_max_label, #search_min_label {
   float: left;
   text-align: left;
   width: 35px;
   margin-left: 5px;
+}
+
+#search_name, #search_min_label{
+  margin-bottom: 5px;
+}
+
+#cycling_team {
+  width: 220px;
 }
 
 .overlay {

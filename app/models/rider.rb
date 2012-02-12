@@ -8,10 +8,28 @@ class Rider < ActiveRecord::Base
   validates :cycling_team, :presence => true
 
   def self.search(params)
-    if params and params[:name] and params[:max] and params[:max].try(:to_i)
-      self.where("riders.name LIKE :name AND riders.value <= :max", {:name => "%#{params[:name]}%", :max => params[:max].to_i}).order("value DESC").all
-    elsif params and params[:name]
-      self.where("riders.name LIKE :name", {:name => "%#{params[:name]}%"}).order("value DESC").all
+    sql_string = "riders.active = :active"
+    sql_hash = {:active => true}
+    if params
+      if params[:name]
+        sql_string += " AND riders.name LIKE :name"
+        sql_hash[:name] = "%#{params[:name]}%"
+      end
+      if params[:min] and params[:min].try(:to_i)
+        sql_string += " AND riders.value >= :min"
+        sql_hash[:min] = params[:min].to_i
+      end
+      if params[:max] and params[:max].try(:to_i)
+        sql_string += " AND riders.value <= :max"
+        sql_hash[:max] = params[:max].to_i
+      end
+      if params[:team] and params[:team].try(:to_i)
+        sql_string += " AND riders.cycling_team_id = :team"
+        sql_hash[:team] = params[:team].to_i
+      end
+    end
+    if sql_hash.length > 1
+      self.where(sql_string,sql_hash).order("value DESC").all
     else
       nil
     end

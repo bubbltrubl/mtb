@@ -14,33 +14,39 @@
         <tr>
           <th>Naam</th>
           <th>Datum</th>
-          <th></th>
+          <% unless @team.race_teams.empty? %>
+            <th></th>
+          <% end %>
           <th></th>
         </tr>
       </thead>
       <tbody>
       <% race_classes = ["even","odd"] %>
-      <% @races.each do |race| %>
+      <% @races.each_with_index do |race,count| %>
         <% race_classes.reverse! if @team.has_race_team_for(race)%>
         <% selected = "" %>
         <% selected = " selected"if (@race and @race == race) %>
         <tr class="<%= race_classes.first %><%= selected %>">
           <td><%= race.name %></td>
           <td><%= l race.date.to_date, :format => :short %><%= " - #{l(race.end_date.to_date, :format => :short)}" if race.is_tour %></td>
+          <% unless @team.race_teams.empty? %>
+            <td>
+              <%= link_to "Bekijk", "/my_teams/#{@team.id}/race/#{race.id}", :class => 'btn small'%>
+            </td>
+          <% end %>
           <td>
-            <%= link_to "Bekijk", "/my_teams/#{@team.id}/race/#{race.id}", :class => 'btn small'%>
-          </td>
-          <td>
-            <% if @editable_races.include?(race) %>
-              <% if @team.has_race_team_for(race) %>
-                <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small', 
-                    :rel => 'popover', 'data-content' => "Hiermee wijzig je de reeds aangemaakte wedstrijdploeg voor #{race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Wijzig wedstrijdploeg' %>
+            <% if (!@team.race_teams.empty? or count == 0) %>
+              <% if @editable_races.include?(race) %>
+                <% if @team.has_race_team_for(race) %>
+                  <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small', 
+                      :rel => 'popover', 'data-content' => "Hiermee wijzig je de reeds aangemaakte wedstrijdploeg voor #{race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Wijzig wedstrijdploeg' %>
+                <% else %>
+                  <%= link_to "Creëer", "/race_teams/new/#{@team.id}/race/#{race.id}/rdtmt", :class => 'btn success small',
+                      :rel => 'popover', 'data-content' => "Hiermee maak je een nieuwe wedstrijdploeg aan voor #{race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Creëer wedstrijdploeg' %>
+                <% end %>
               <% else %>
-                <%= link_to "Creëer", "/race_teams/new/#{@team.id}/race/#{race.id}/rdtmt", :class => 'btn success small',
-                    :rel => 'popover', 'data-content' => "Hiermee maak je een nieuwe wedstrijdploeg aan voor #{race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Creëer wedstrijdploeg' %>
+                <span class="popover-label label important" rel="popover" data-original-title="Niet aanpasbaar" data-content="Deze wedstrijd valt samen met een andere wedstrijd. Deze ploeg zal de overige 10 renners bevatten. Meer info vind je in het reglement">let op</span>
               <% end %>
-            <% else %>
-              <span class="popover-label label important" rel="popover" data-original-title="Niet aanpasbaar" data-content="Deze wedstrijd valt samen met een andere wedstrijd. Deze ploeg zal de overige 10 renners bevatten. Meer info vind je in het reglement">let op</span>
             <% end %>
           </td>
         </tr>

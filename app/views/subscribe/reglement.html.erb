@@ -3,22 +3,22 @@
 </div>
 <section id="praktisch">
   <h2>Praktisch</h2>
-  <p>Iedere deelnemer mag zoveel ploegen inschrijven als hij wil. U kan inschrijven <b>tot en met 16 maart</b>. Dit is de dag vóór Milaan San Remo. Bij het aanmaken van je eerste ploeg, maak je een profiel aan. Gelieve bij het aanmaken van je tweede ploeg ditzelfde profiel te gebruiken. Dit is zowel voor ons als voor u eenvoudiger.<br/> Het inschrijvingsgeld voor één ploeg bedraagt <b>5 euro</b>. Voor 2 ploegen 10 euro enz. Het inschrijvingsgeld moet betaald zijn ten laatste op 16 maart.</p>
-  <p>De eerste wedstrijd voor punten is echter Omloop Het Nieuwsblad (25 febr). Dus indien u te lang wacht, kan u eventueel de punten mislopen van Omloop Het Nieuwsblad, Kuurne-Brussel-Kuurne, Parijs-Nice en Tirreno Adriatico.</p>
-  <p>Het inschrijvingsgeld voor uw ploegen dient bij voorkeur betaald te worden wanneer u uw ploeg indient <b>en ten laatste op 16 maart 2010</b>. Ploegen die niet betaald zijn, kunnen geen punten verdienen! U kan uw ploeg indienen via <b><%=link_to "het online inschrijvingsformulier", new_user_registration_path %></b>. Betalen kan in ’t Posthuis, aan de organisatoren of storten op rekeningnummer: <b>063-5085373-86</b> met vermelding van uw naam en naam van de wielerploeg.</p>
+  <p>Iedere deelnemer mag zoveel ploegen inschrijven als hij wil. Je kan inschrijven <b>tot en met 16 maart</b>. Dit is de dag vóór Milaan San Remo. Bij het aanmaken van je eerste ploeg, maak je een profiel aan. Gelieve bij het aanmaken van je tweede ploeg ditzelfde profiel te gebruiken. Dit is zowel voor jou als voor ons eenvoudiger.<br/> Het inschrijvingsgeld voor één ploeg bedraagt <b>5 euro</b>; voor 2 ploegen 10 euro, ... Het inschrijvingsgeld moet betaald zijn ten laatste op 16 maart.</p>
+  <p>De eerste wedstrijd voor punten is echter Omloop Het Nieuwsblad (25 febr). Dus indien je te lang wacht, kan je eventueel de punten mislopen van Omloop Het Nieuwsblad, Kuurne-Brussel-Kuurne, Parijs-Nice en Tirreno Adriatico.</p>
+  <p>Het inschrijvingsgeld voor je ploegen dient bij voorkeur betaald te worden wanneer je jouw ploeg indient <b>en ten laatste op 16 maart 2012</b>. Ploegen die niet betaald zijn, kunnen geen punten verdienen! Je kan je ploeg indienen via <b><%=link_to "het online inschrijvingsformulier", new_user_registration_path %></b>. Betalen kan in ’t Posthuis, aan de organisatoren of storten op rekeningnummer: <b>063-5085373-86</b> met vermelding van je naam en de naam van de wielerploeg.</p>
 </section>
 <section id="spel">
   <h2>Spel</h2>
-<p>Iedere deelnemer schrijft minstens 1 ploeg in. Elke ploeg bestaat uit <strong>20 renners</strong>. Elke renner heeft een bepaalde waarde. Hoe beter de renner, hoe groter de waarde. De renners waaruit je kan kiezen zijn deze uit de ProTour-ploegen. Ook kan je uit de belangrijkste renners van de ProContinentale ploegen kiezen. Enkel de renners op deze lijst kunnen gekozen worden. Elke ploeg mag een maximum waarde van <b><%=number_to_currency(2000000, :unit => "€", :delimiter => " ",:precision => 0) %></b> hebben.</p>
+<p>Iedere deelnemer schrijft minstens 1 ploeg in. Elke ploeg bestaat uit <strong>20 renners</strong>. Elke renner heeft een bepaalde waarde. Hoe beter de renner, hoe groter de waarde. De renners waaruit je kan kiezen zijn deze uit de ProTour-ploegen. Je kan ook uit de belangrijkste renners van de ProContinentale ploegen kiezen. Enkel de renners op deze lijst kunnen gekozen worden. Elke ploeg mag een maximum waarde van <b><%=number_to_currency(2000000, :unit => "€", :delimiter => " ",:precision => 0) %></b> hebben.</p>
 <p>Ook dit jaar hebben we het spel licht aangepast. U hebt dit jaar de eer om ploegmanager te zijn van een beloftevolle wielerploeg. U zal het wellicht beter doen dan alle bekende ploegmanagers (Lefevere, ...).</p>
-<p>Per <strong>wedstrijd</strong> kan je maar <strong>10 renners</strong> van je ploeg selecteren. Enkel de geselecteerde renners kunnen punten verdienen voor die wedstrijd. Als u vergeet 10 renners te selecteren voor een bepaalde wedstrijd, dan wordt de selectie van de vorige wedstrijd gebruikt. Uw selectie voor elke wedstrijd kan tot 12u 's middags op de dag van de wedstrijd ingegeven worden. Je wedstrijdselecties maken doe je via het menu <em>Mijn ploegen</em>.<br/>
+<p>Per <strong>wedstrijd</strong> kan je maar <strong>10 renners</strong> van je ploeg selecteren. Enkel de geselecteerde renners kunnen punten verdienen voor die wedstrijd. Als je vergeet 10 renners te selecteren voor een bepaalde wedstrijd, dan wordt de selectie van de vorige wedstrijd behouden. Uw selectie voor elke wedstrijd kan tot 12u 's middags op de dag van de wedstrijd ingegeven worden. Je wedstrijdselecties maken doe je via het menu <em>Mijn ploegen</em>.<br/>
 Meer info vind je onderaan bij het <%= link_to "gedetailleerde spelverloop", "#detailed_game" %>.</p>
 <p>Enkel de wedstrijden die vermeld staan op de <b><%=link_to "MegaTomBike-kalender", races_path %></b> kunnen punten opleveren.</p>
 <p>De wedstrijden zijn gerangschikt volgens <b>categorie</b>, zowel voor de eendagswedstrijden als de rondes: buiten categorie - eerste categorie - tweede categorie - derde categorie. Naargelang deze categorie kunnen er meer of minder punten verdiend worden. Het WK tijdrijden, het WK op de weg en het Belgisch kampioenschap hebben een aparte puntenverdeling (zie <%= link_to "puntentelling", "#puntentelling" %>).</p>
 <p>In geval van een ploegentijdrit krijgen al de renners van een team, die in dezelfde groep aankomen en de tijd bepalen, dezelfde punten (natuurlijk afhankelijk van de positie). Renners de niet kunnen volgen, maar wel bij het winnende team behoren, krijgen dus geen punten.</p>
 <p>Indien er renners zijn die tijdens het seizoen betrapt worden op doping of die geschorst worden door gelijk welke reden verliezen hun reeds verdiende punten NIET!</p>
 <p>Indien er discussie is over de puntentelling of dergelijke heeft de organisatie altijd gelijk!</p>
-<p><b>Prijzenpot</b>: wordt tijdig meegedeeld na alle inschrijvingen. Dit is uiteraard afhankelijk van het aantal inschrijvingen en een eventuele fuif.</p>
+<p><b>De Prijzenpot</b> wordt tijdig meegedeeld na alle inschrijvingen. Dit is uiteraard afhankelijk van het aantal inschrijvingen en eventuele inkomsten (fuif,quiz, ...).</p>
 <p>Er worden <b>3 aparte klassementen</b> opgesteld: <em>voorjaar</em>, <em>tour</em>, <em>najaar</em>. Bekijk de <%= link_to "kalender", races_path %> voor de juiste onderverdeling. Het eindklassement telt uiteraard ook mee.</p>
 </section>
 <section id="puntentelling">
@@ -27,37 +27,39 @@ Meer info vind je onderaan bij het <%= link_to "gedetailleerde spelverloop", "#d
 </section>
 <section id="detailed_game">
   <h2>Gedetailleerd spelverloop</h2>
-<p>Voor elke wedstrijd van de kalender <strong>kan</strong> je een andere <em>wedstrijdploeg</em> maken. Dit hoeft echter niet. Als je geen <em>wedstrijdploeg</em> aanmaakt voor een bepaalde wedstrijd zal deze van de vorige wedstrijd gebruikt worden.</p>
-<p>Soms worden er ook 2 wedstrijden tergelijkertijd gereden, bijvoorbeeld Parijs-Nice(4-11 maart) en Tirreno-Adriatico(7-13 maart). Je moet dan enkel voor de wedstrijd die eerst start (in het voorbeeld Parijs-Nice) een wedstrijdploeg maken. De wedstrijdploeg voor de andere wedstrijd (in het voorbeeld Tirreno-Adriatico) zal automatisch aangemaakt worden en zal de overige 10 renners bevatten.</p>
-<p>Je kan ook enkel wedstrijdploegen aanmaken voor eendagswedstrijden of voor een hele ronde. Tijdens een ronde kan je wedstrijdploeg dus niet meer gewijzigd worden.</p>
+<p>Voor elke wedstrijd van de kalender <strong>kan</strong> je een andere <em>wedstrijdploeg</em> maken. Dit hoeft echter niet. Als je geen <em>wedstrijdploeg</em> aanmaakt voor een bepaalde wedstrijd zal deze van de vorige wedstrijd behouden worden.</p>
+<p>Soms worden er ook 2 wedstrijden tergelijkertijd gereden, bijvoorbeeld Parijs-Nice(4-11 maart) en Tirreno-Adriatico(7-13 maart). Je moet dan enkel voor de wedstrijd die eerst start (in het voorbeeld Parijs-Nice) een wedstrijdploeg maken. De wedstrijdploeg voor de andere wedstrijd (in het voorbeeld Tirreno-Adriatico) zal automatisch aangemaakt worden en zal de overige 10 renners van je ploeg bevatten.</p>
+<p>Soms worden er zelfs 3 wedstrijden tergelijkertijd gereden, bijvoorbeeld Ronde Van Italië(5-27 mei), Ronde Van Californië(13-20 mei) en Ronde Van België(23-27 mei). Je moet ook hier enkel voor de wedstrijd die het eerst start (in het voorbeeld Ronde Van Italië) een wedstrijdploeg maken. De wedstrijdploeg voor de twee andere wedstrijden (in het voorbeeld Ronde Van Californië en België) zal automatisch aangemaakt worden en zal de overige 10 renners van je ploeg bevatten. Je wedstrijdploeg voor de Ronde Van Californië en de Ronde Van België zal dus dezelfde renners bevatten.</p>
+<p>Je kan enkel wedstrijdploegen aanmaken voor eendagswedstrijden of voor een hele ronde. Tijdens een ronde kan je wedstrijdploeg dus niet meer gewijzigd worden.</p>
 <p>
-In principe is het aanmaken en wijzigen van wedstrijdploegen doodeenvoudig. Maar voor diegene die toch wat meer details willen kennen hebben we hieronder wat voorbeelden gegeven.<br/>
+Ter illustratie worden hieronder enkele voorbeelden gegeven voor het aanmaken en wijzigen van wedstrijdploegen.<br/>
 <em>Opmerking:</em> De uitleg is moeilijker dan dat het in werkelijkheid is.
 </p>
 <h3>Enkele voorbeelden voor het aanmaken en wijzigen van wedstrijdploegen</h3>
 <h4>1. Beginsituatie</h4>
 <%= image_tag "beginsituatie.png", :class => "image-terms" %>
-<p class="terms">Als je het volledige inschrijfproces hebt gevolgd (en je dus al een eerste wedstrijdploeg hebt aangemaakt) zal het Mijn ploegen scherm er als volgt uitzien. Mocht je nog geen eerste wedstrijdploeg hebben gemaakt gelieve dit dan zo snel mogelijk te doen.</p>
+<p class="terms">Als je het volledige inschrijfproces hebt gevolgd (en je dus al een eerste wedstrijdploeg hebt aangemaakt) zal het Mijn ploegen scherm er als volgt uitzien. Mocht je nog geen eerste wedstrijdploeg hebben gemaakt, gelieve dit dan zo snel mogelijk te doen.</p>
 <p class="terms">
-We zien dat je de wedstrijdploeg voor Omloop Het Nieuwsblad kan wijzigen en dat je voor andere wedstrijden een nieuwe wedstrijdploeg kan aanmaken door op <em>Creëer</em> te klikken. Bovendien zie je ook dat je voor Tirreno-Adriatico geen wedstrijdploeg kan aanmaken. Deze is afhankelijk van de selectie voor Parijs-Nice doordat deze tergelijkertijd worden verreden.</p>
-<p class="terms">We zullen nu een nieuwe wedstrijdploeg aanmaken voor Kuurne-Brussel-Kuurne door op de eerste Creëer knop te klikken. We komen dan in de volgende situatie terecht.</p>
+Je ziet dat je de wedstrijdploeg voor Omloop Het Nieuwsblad kan wijzigen en dat je voor andere wedstrijden een nieuwe wedstrijdploeg kan aanmaken door op <em>Creëer</em> te klikken. Bovendien zie je ook dat je voor Tirreno-Adriatico geen wedstrijdploeg kan aanmaken. Deze is afhankelijk van de selectie voor Parijs-Nice doordat deze tergelijkertijd worden verreden.</p>
+<p class="terms">Je kan nu een nieuwe wedstrijdploeg aanmaken voor Kuurne-Brussel-Kuurne door op de Creëer knop te klikken, aangegeven bij deze wielerwedstrijd.
+<br/><br/><br/></p>
 <h4>2. Nieuwe wedstrijdploeg voor KBK</h4>
 <%= image_tag "kbk.png", :class => "image-terms" %>
 <p class="terms">
-We zien nu dat we de net aangemaakte wedstrijdploeg voor KBK kunnen wijzigen. Maar wat zijn de gevolgen voor de wedstrijdploeg van Parijs-Nice. Deze zal nu gelijk zijn aan die voor KBK, terwijl ze daarnet nog gelijk was aan de wedstrijdploeg voor Omloop Het Nieuwsblad.</p>
+Je net aangemaakte wedstrijdploeg voor KBK kan nog steeds gewijzigd worden. Gevolg voor jouw wedstrijdploeg van Parijs-Nice? Door een wedstrijdploeg samen te stellen voor KBK wordt jouw wedstrijdploeg voor Parijs-Nice gelijk aan jouw wedstrijdploeg voor KBK. Hiervoor was ze nog gelijk aan jouw wedstrijdploeg voor Omloop Het Nieuwsblad.</p>
 <p class="terms">
-Ook de wedstrijdploeg voor Tirreno-Adriatico is gewijzigd doordat de selectie voor Parijs-Nice gewijzigd is. Zelfs de wedstrijdploeg voor Milaan-SanRemo is mee gewijzigd.</p>
+Hierdoor word ook je wedstrijdploeg voor Tirreno-Adriatico gewijzigd. Zelfs de wedstrijdploeg voor Milaan-SanRemo is mee gewijzigd.</p>
 <p class="terms">
-Je ziet dus dat 1 wedstrijdploeg bijmaken of wijzigen vele gevolgen kan hebben. We raden dan ook aan om voor elke wedstrijd een nieuwe wedstrijdploeg te maken. En als je er dan toch eens eentje vergeet dan kan je altijd terug vallen op je laatste selectie.<br/>
-We zullen nu een laatste wedstrijdploeg aanmaken door op de eerste Creëer-knop te klikken 
+Je ziet dus dat 1 wedstrijdploeg bijmaken of wijzigen vele gevolgen kan hebben. We raden je dan ook aan, voor elke wedstrijd een nieuwe wedstrijdploeg te maken. Als je er dan toch eens eentje vergeet, kan je altijd terugvallen op je laatste selectie.<br/>
+Er wordt nu een laatste wedstrijdploeg aangemaakt door op de Creëer-knop voor Parijs-Nice te klikken.
 </p>
 <h4>3. Nieuwe wedstrijdploeg voor Parijs-Nice</h4>
 <%= image_tag "pn.png", :class => "image-terms" %>
 <p class="terms">
-We hebben nu een nieuwe wedstrijdploeg voor Parijs-Nice. Ook hier moeten we weer beseffen dat de wedstrijdploeg voor Tirreno-Adriatico hierdoor gewijzigd is. Deze zal namelijk de andere 10 renners van je ploeg bevatten.
+Je hebt nu een nieuwe wedstrijdploeg voor Parijs-Nice. Je wedstrijdploeg voor Tirreno-Adriatico wordt hierdoor gewijzigd. Je wedstrijdploeg voor Tirreno-Adriatico bevat de overige 10 renners van je ploeg.
 </p>
 <p class="terms">
-Let op dat ook de wedstrijdploeg voor Milaan-San Remo hiermee ook weer gewijzigd is. Deze zal gelijk zijn aan je wedstrijdploeg voor Parijs-Nice en dus NIET gelijk aan je wedstrijdploeg voor Tirreno-Adriatico. Dit komt omdat je geen wedstrijdploeg voor Tirreno-Adriatico kan aanmaken.
+Let op dat ook de wedstrijdploeg voor Milaan-San Remo hierdoor weer gewijzigd is. Deze zal gelijk zijn aan je wedstrijdploeg voor Parijs-Nice en dus NIET aan je wedstrijdploeg voor Tirreno-Adriatico. Dit komt omdat je geen wedstrijdploeg voor Tirreno-Adriatico kan aanmaken.
 </p>
 <p class="terms">
 Als je nog vragen hebt, kan je altijd mailen naar <%= link_to "info@megatombike.be", "mailto:info@megatombike.be" %></p>

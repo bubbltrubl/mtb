@@ -147,7 +147,7 @@ class RaceTeamsController < ApplicationController
     elsif add_or_remove == "remove"
       riders_ids.delete(rider_id) if riders_ids.include?(rider_id)
     end
-    riders = Rider.where(:id => riders_ids).joins(:cycling_team).all
+    riders = Rider.where(:id => riders_ids).joins(:cycling_team).includes(:cycling_team).all
     return put_riders_in_correct_order(riders_ids,riders)
   end
 

@@ -2,6 +2,13 @@
   <h1>Maak een ploeg aan <small>Selecteer 20 renners</h1>
 </div>
 
+<div class="alert-message warning">
+  <a class="close" href="#">×</a>
+  <p>
+    <strong>Opgelet:</strong> Als u onderaan op verder klikt en al uw gegevens zijn correct ingevuld dan wordt uw ploeg opgeslagen. Deze is dan niet meer aanpasbaar.
+  </p>
+</div>
+
 <%= form_for(@team) do |f| %>
   <%= render :partial => "shared/validation_errors", :locals => {:model => @team} %>  
 

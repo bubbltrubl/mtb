@@ -1,9 +1,17 @@
 class TeamsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :admin, :only => [:destroy]  
+  before_filter :admin, :only => [:destroy,:index,:show]  
 
   def index
-    @teams = Team.all
+    @teams = Team.all_with_users
+  end
+
+  def show
+    @teams = Team.all_with_users
+    @team = Team.where(:id => params[:id]).includes({:riders => :cycling_team}).first
+    respond_to do |format|
+      format.html { render "index"}
+    end
   end
 
   def new
@@ -42,7 +50,7 @@ class TeamsController < ApplicationController
       format.js { render "shared/update_selection", 
         :locals => {:team => "team", :riders_length => Team::MAXIMUM_SIZE}
       }
-     end
+    end
   end
 
   def remove_rider

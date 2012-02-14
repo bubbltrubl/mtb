@@ -20,6 +20,10 @@ class Team < ActiveRecord::Base
     return budget
   end
 
+  def self.all_with_users
+    self.includes(:user).order("points DESC").all
+  end
+
   def has_race_team_for(race)
     return races.include?(race)
   end

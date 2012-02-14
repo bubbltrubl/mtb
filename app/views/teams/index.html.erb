@@ -1,2 +1,45 @@
-<h1>TeamsController#index</h1>
-<p>Find me in app/views/teams_controller/index.html.erb</p>
+<div class="page-header">
+  <h1>Klassement</h1>
+</div>
+<div class="row">
+  <div class="span8">
+    <table class="bordered-table zebra-striped">
+      <thead>
+        <th>#</th>
+        <th>Ploeg</th>
+        <th>Ploegleider</th>
+        <th>Punten</th>
+      </thead>
+      <tbody>
+        <% @teams.each_with_index do |team,key| %>
+          <tr>
+            <td><%= key + 1 %></td>
+            <td><%= link_to team.name, team %></span></td>
+            <td><%= link_to team.user.username, team %></td>
+            <td><%= link_to team.points, team %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="span8">
+    <% if @team %>
+      <table class="zebra-striped">
+        <thead>
+          <th>Renner</th>
+          <th>Ploeg</th>
+          <th>Punten</th>
+        </thead>
+        <tbody>
+          <% @team.riders.each do |rider| %>
+            <tr>
+              <td><%= rider.name %></span></td>
+              <td><%= rider.cycling_team.short_name %></td>
+              <td><%= rider.points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>   
+    <% end %>
+  </div>
+</div>

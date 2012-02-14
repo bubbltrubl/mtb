@@ -26,7 +26,7 @@ Megatombike::Application.routes.draw do
 
   resources :riders
   resources :cycling_teams
-  resources :teams, :only => [:index, :new, :create, :destroy]
+  resources :teams, :only => [:index, :new, :create, :destroy, :show]
 
   devise_for :users, :controllers => { :registrations => "registrations" }
 

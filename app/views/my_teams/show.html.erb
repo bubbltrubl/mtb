@@ -16,7 +16,7 @@
         <tr>
           <th>Naam</th>
           <th>Datum</th>
-          <% unless @team.race_teams.empty? %>
+          <% unless @race_teams.empty? %>
             <th></th>
           <% end %>
           <th></th>
@@ -25,24 +25,24 @@
       <tbody>
       <% race_classes = ["even","odd"] %>
       <% @races.each do |race| %>
-        <% race_classes.reverse! if @team.has_race_team_for(race)%>
+        <% race_classes.reverse! unless @race_teams.select{ |rt| rt.race_id == race.id }.first.nil? %>
         <% selected = "" %>
         <% selected = " selected"if (@race and @race == race) %>
         <tr class="<%= race_classes.first %><%= selected %>">
           <td><%= race.name %></td>
           <td><%= l race.date.to_date, :format => :short %><%= " - #{l(race.end_date.to_date, :format => :short)}" if race.is_tour %></td>
-          <% unless @team.race_teams.empty? %>
+          <% unless @race_teams.empty? %>
             <td>
-              <% if RaceTeam.exists_for_team_and_race(@team, race) %>
+              <% if RaceTeam.exists_for_race(@race_teams, race) %>
                 <%= link_to "Bekijk", "/my_teams/#{@team.id}/race/#{race.id}", :class => 'btn small'%>
               <% end %>
             </td>
           <% end %>
           <td>
-            <% if (!@team.race_teams.empty? or (race == @first_possible_race and @can_subscribe)) %>
+            <% if (!@race_teams.empty? or (race == @first_possible_race and @can_subscribe)) %>
               <% if @editable_races.include?(race) %>
-                <% if @team.has_race_team_for(race) %>
-                  <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small', 
+                <% unless @race_teams.select{ |rt| rt.race_id == race.id }.first.nil? %>
+                  <%= link_to "Wijzig", edit_race_team_path(@race_teams.select { |rt| rt.race_id == race.id }.first), :class => 'btn info small', 
                       :rel => 'popover', 'data-content' => "Hiermee wijzig je de reeds aangemaakte wedstrijdploeg voor #{race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Wijzig wedstrijdploeg' %>
                 <% else %>
                   <%= link_to "Creëer", "/race_teams/new/#{@team.id}/race/#{race.id}/rdtmt", :class => 'btn success small',

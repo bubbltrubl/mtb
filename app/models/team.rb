@@ -24,10 +24,6 @@ class Team < ActiveRecord::Base
     self.includes(:user).order("points DESC").all
   end
 
-  def has_race_team_for(race)
-    return races.include?(race)
-  end
-
   def get_race_team_for(race)
     return race_teams.reject { |race_team| race_team.race != race }.first
   end

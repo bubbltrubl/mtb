@@ -6,13 +6,18 @@ class MyTeamsController < ApplicationController
   end
 
   def show
-    @teams = current_user.teams.includes(:races,{:riders => :cycling_team})
-    @team = @teams.select{|team| team.id.to_s == params[:team_id]}.first
+    @teams = @my_teams
+    if params[:race_id].nil?
+      @team = Team.where(id: params[:team_id]).first
+    else
+      @team = Team.where(id: params[:team_id]).includes({:riders => :cycling_team}).first
+    end
     if @team.nil?
       not_allowed_to_view; return false;
     end
+    @race_teams = @team.race_teams.includes(:race).all
     @races = Race.all_except_stages
-    @editable_races = Race.editable_races(@races, @team.race_teams)
+    @editable_races = Race.editable_races(@races, @race_teams)
     @first_possible_race = Race.first_possible_race
     show_race_team_specific unless params[:race_id].nil?
   end

@@ -1,8 +1,8 @@
 <h6 class="left_floater"><%= @race.name %></h6>
-<% if (!@team.race_teams.empty? or race == @first_possible_race) %>
+<% if (!@race_teams.empty? or race == @first_possible_race) %>
   <% if @editable_races.include?(@race) %>
-    <% if @team.has_race_team_for(@race) %>
-      <%= link_to "Wijzig deze wedstrijdploeg", edit_race_team_path(@team.get_race_team_for(@race)), :class => 'btn info small thin right_floater align_with_header', 
+    <% unless @race_teams.select{ |rt| rt.race_id == @race.id }.first.nil? %>
+      <%= link_to "Wijzig deze wedstrijdploeg", edit_race_team_path(@race_team), :class => 'btn info small thin right_floater align_with_header', 
           :rel => 'popover', 'data-content' => "Hiermee wijzig je de reeds aangemaakte wedstrijdploeg voor #{@race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Wijzig wedstrijdploeg'%>
     <% else %>
       <%= link_to "Creëer een wedstrijdploeg", "/race_teams/new/#{@team.id}/race/#{@race.id}/rdtmt", :class => 'btn success small thin right_floater align_with_header',

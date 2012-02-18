@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def current_user_teams
     @my_teams = []
     if current_user.try(:teams)
-      @my_teams = current_user.teams
+      @my_teams = current_user.teams.all
     end
   end
   

@@ -15,12 +15,10 @@ class RaceTeam < ActiveRecord::Base
     opposite
   end
   
-  def self.exists_for_team_and_race(team,race)
-    race_team = RaceTeam.where(race_id: race.id, team_id: team.id).limit(1).first
+  def self.exists_for_race(race_teams,race)
+    race_team = race_teams.select { |rt| rt.race_id == race.id }.first
     if race_team.nil?
-      race_team = RaceTeam.where("team_id = :team_id AND races.date < :date",
-                          {:team_id => team.id, :date => race.date})
-                          .joins(:race).order("races.date DESC").limit(1).first
+      race_team = race_teams.select { |rt| rt.race.date < race.date }.sort { |x,y| y.race.date <=> x.race.date }.first
       return race_team.nil? ? false : true
     else
       return true
@@ -39,10 +37,10 @@ class RaceTeam < ActiveRecord::Base
     else
       race_team = race_team.load_dependencies
     end
-    race_team 
+    race_team
   end
 
   def load_dependencies
-    return RaceTeam.where(id: id).includes(:race,{:riders => :cycling_team}).limit(1).first
+    return RaceTeam.where(id: id).includes(:riders).limit(1).first
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120211234113) do
+ActiveRecord::Schema.define(:version => 20120219131042) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,31 @@ ActiveRecord::Schema.define(:version => 20120211234113) do
     t.index ["category_id"], :name => "index_races_on_category_id"
     t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_1"
     t.foreign_key ["category_id"], "categories", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_2"
+  end
+
+  create_table "riders", :force => true do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.integer  "points",          :default => 0
+    t.boolean  "active",          :default => true
+    t.integer  "cycling_team_id",                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["cycling_team_id"], :name => "index_riders_on_cycling_team_id"
+    t.foreign_key ["cycling_team_id"], "cycling_teams", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "riders_ibfk_1"
+  end
+
+  create_table "race_results", :force => true do |t|
+    t.integer  "race_id",    :null => false
+    t.integer  "rider_id",   :null => false
+    t.integer  "position",   :null => false
+    t.integer  "points",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["race_id"], :name => "index_race_results_on_race_id"
+    t.index ["rider_id"], :name => "index_race_results_on_rider_id"
+    t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "race_results_ibfk_1"
+    t.foreign_key ["rider_id"], "riders", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "race_results_ibfk_2"
   end
 
   create_table "users", :force => true do |t|
@@ -88,18 +113,6 @@ ActiveRecord::Schema.define(:version => 20120211234113) do
     t.foreign_key ["team_id"], "teams", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "race_teams_ibfk_2"
   end
 
-  create_table "riders", :force => true do |t|
-    t.string   "name"
-    t.integer  "value"
-    t.integer  "points",          :default => 0
-    t.boolean  "active",          :default => true
-    t.integer  "cycling_team_id",                   :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["cycling_team_id"], :name => "index_riders_on_cycling_team_id"
-    t.foreign_key ["cycling_team_id"], "cycling_teams", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "riders_ibfk_1"
-  end
-
   create_table "race_teams_riders", :id => false, :force => true do |t|
     t.integer "race_team_id", :null => false
     t.integer "rider_id",     :null => false
@@ -116,6 +129,18 @@ ActiveRecord::Schema.define(:version => 20120211234113) do
     t.index ["rider_id"], :name => "index_riders_teams_on_rider_id"
     t.foreign_key ["team_id"], "teams", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "riders_teams_ibfk_1"
     t.foreign_key ["rider_id"], "riders", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "riders_teams_ibfk_2"
+  end
+
+  create_table "team_results", :force => true do |t|
+    t.integer  "race_id",    :null => false
+    t.integer  "team_id",    :null => false
+    t.integer  "points",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["race_id"], :name => "index_team_results_on_race_id"
+    t.index ["team_id"], :name => "index_team_results_on_team_id"
+    t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "team_results_ibfk_1"
+    t.foreign_key ["team_id"], "teams", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "team_results_ibfk_2"
   end
 
 end

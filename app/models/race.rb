@@ -5,6 +5,8 @@ class Race < ActiveRecord::Base
   belongs_to :race
   has_many :races
   has_many :race_teams
+  has_many :race_results
+  has_many :team_results
 
   validates :name, :presence => true
   validates :previous_winner, :presence => true

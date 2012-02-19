@@ -2,6 +2,7 @@ class Rider < ActiveRecord::Base
   belongs_to :cycling_team
   has_and_belongs_to_many :teams
   has_and_belongs_to_many :race_teams
+  has_many :race_results
 
   validates :name, :presence => true
   validates :value, :presence => true  

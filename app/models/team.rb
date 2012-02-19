@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
 
   belongs_to :user
   has_many :race_teams
+  has_many :team_results
   has_and_belongs_to_many :riders
   has_many :races, :through => :race_teams
   validates :name,  :presence => true, 

@@ -1,4 +1,7 @@
 Megatombike::Application.routes.draw do
+  
+  get "results/new/:race_id" => "results#new"
+  post "results/create/:race_id" => "results#create"
   get "results/:race_id" => "results#index"
   get "results" => "results#index"
   
@@ -22,6 +25,7 @@ Megatombike::Application.routes.draw do
   post "teams/add_rider"
   post "teams/remove_rider"
 
+  post "riders/result_search"
   post "riders/search"
   get "subscribe/index"
   get "subscribe/finished"

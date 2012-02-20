@@ -94,4 +94,12 @@ class RidersController < ApplicationController
       format.html
     end
   end
+  
+  def result_search
+    params[:name] = params[:term]
+    @riders = Rider.search(params)
+    respond_to do |format|
+      format.json { render json: @riders }
+    end
+  end
 end

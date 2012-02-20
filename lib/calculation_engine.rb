@@ -1,16 +1,18 @@
 module CalculationEngine
   def self.calculate race_id,riders_ids
-    # Convert rider_ids to integers
-    riders_ids.collect! { |rider_id| rider_id.to_i }
-    
     ActiveRecord::Base.transaction do
       begin
         # Get race
         race = Race.where(id: race_id).includes(:category).first
         # Get riders
-        riders = Rider.where("id IN (:ids)",{:ids => riders_ids}).all
+        riders_array = Rider.where("id IN (:ids)",{:ids => riders_ids}).all
+        # Add riders in correct order
+        riders = []
+        riders_ids.each do |rider_id|
+          riders << riders_array.select { |rider| rider.id == rider_id }.first
+        end
         # Parse points
-        points = race.category.points.split("/").collect! { |point| point.to_i }
+        points = race.category.points_array
         # Save result => create race_results
         save_race_results(race,riders,points)
         # Give riders points => update rider.points
@@ -33,7 +35,6 @@ module CalculationEngine
         # Race results ready => race.results_ready = true
         race.update_attribute(:results_ready, true)
       rescue Exception => error
-        puts error
         raise ActiveRecord::Rollback
       end
     end

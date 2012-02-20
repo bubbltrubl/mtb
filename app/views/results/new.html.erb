@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h1>Nieuwe uitslag <small>voor <%= @race.name %></small></h1>
+</div>
+<%= form_tag("/results/create/#{@race.id}") do %>
+  <% Array.new(@race.category.nr_of_riders).each_index do |pos| %>
+    <div class="clearfix">
+      <%= label_tag "result_#{pos}_rider","Renner #{pos+1}" %>
+      <div class="input">
+        <%= hidden_field_tag "result[#{pos}][rider_id]" %>
+        <%= text_field_tag "result_#{pos}_rider","", :id => "result_#{pos}_rider", :class => 'result_rider' %>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="actions">
+    <%= submit_tag "Opslaan", :class => 'btn primary' %>
+  </div>
+<% end %>

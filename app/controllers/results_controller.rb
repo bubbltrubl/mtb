@@ -1,5 +1,8 @@
+require 'calculation_engine.rb'
+
 class ResultsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :admin, :only => [:new, :create]
   
   def index
     if params[:race_id]
@@ -9,6 +12,20 @@ class ResultsController < ApplicationController
     end
     get_previous_and_next_races(@race) unless @race.nil?
     show_results(@race) unless @race.nil?
+  end
+  
+  def new
+    @race = Race.find(params[:race_id])
+  end
+  
+  def create
+    @race = Race.find(params[:race_id])
+    rider_ids = []
+    params[:result].values.each_index do |key|
+      rider_ids << params[:result]["#{key}"][:rider_id].to_i
+    end
+    # TODO: add validation: @race.nr_of_riders == length van rider_ids
+    CalculationEngine::calculate(@race.id, rider_ids)
   end
   
   private

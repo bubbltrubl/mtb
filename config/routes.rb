@@ -1,5 +1,8 @@
 Megatombike::Application.routes.draw do
-  resources :my_teams, :only => [:index]  
+  get "results/:race_id" => "results#index"
+  get "results" => "results#index"
+  
+  resources :my_teams, :only => [:index]
   get "my_teams/:team_id/race/:race_id" => "my_teams#show"
   get "my_teams/:team_id" => "my_teams#show"
 

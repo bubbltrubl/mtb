@@ -24,7 +24,7 @@ module CalculationEngine
         # Save team results => create team_results
         team_points = {}
         race_teams.each do |race_team|
-          save_team_result_and_calculate_team_points(race_team,rider_points, team_points)
+          save_team_result_and_calculate_team_points(race, race_team,rider_points, team_points)
         end
         # Give teams points => update team.points
         teams.each do |team|
@@ -74,7 +74,7 @@ module CalculationEngine
     return rider_points
   end
   
-  def self.save_team_result_and_calculate_team_points race_team,rider_points, team_points
+  def self.save_team_result_and_calculate_team_points race, race_team, rider_points, team_points
     points = 0
     race_team.riders.each do |rider|
       points += rider_points[rider.id] if rider_points.has_key?(rider.id)
@@ -82,7 +82,7 @@ module CalculationEngine
     if points > 0
       team_points[race_team.team_id] = points
       TeamResult.create!(
-        :race_id => race_team.race_id,
+        :race_id => race.id,
         :team_id => race_team.team_id,
         :points => points
       )

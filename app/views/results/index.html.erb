@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="span-one-third next_previous">
+    <% if @previous_race %><%= link_to "<< #{@previous_race.name}", "/results/#{@previous_race.id}", :class => "pull-left" %><% else %>&nbsp;<% end %>
+  </div>
+  <div class="span-one-third aligned-center">
+    <h3 class="well"><% if @race %><%= @race.name %><% end %></h3>
+  </div>
+  <div class="span-one-third next_previous">
+  <% if @next_race %><%= link_to "#{@next_race.name} >>", "/results/#{@next_race.id}", :class => "pull-right" %><% else %>&nbsp;<% end %>
+  </div>
+</div>
+<% if (@race and !@race_results.empty?) %>
+  <div class="row">
+    <div class="span8">
+      <table class="bordered-table zebra-striped">
+        <thead>
+          <th>#</th>
+          <th>Renner</th>
+          <th>Ploeg</th>
+          <th>Punten</th>
+        </thead>
+        <tbody>
+          <% @race_results.each_with_index do |race_result,index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= race_result.rider.name %></span></td>
+              <td><%= race_result.rider.cycling_team.short_name %></td>
+              <td><%= race_result.points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="span8">
+      <table class="bordered-table zebra-striped">
+        <thead>
+          <th>#</th>
+          <th>Ploeg</th>
+          <th>Ploegleider</th>
+          <th>Punten</th>
+        </thead>
+        <tbody>
+          <% @team_results.each_with_index do |team_result,index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= team_result.team.name %></span></td>
+              <td><%= team_result.team.user.username %></td>
+              <td><%= team_result.points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% elsif @race %>
+  <p>Deze wedstrijd is nog niet verreden</p>
+<% else %>
+  <p>Nog geen resultaten beschikbaar</p>
+<% end %>

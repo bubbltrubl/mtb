@@ -49,6 +49,10 @@ class Race < ActiveRecord::Base
   def self.can_subscribe?
     self.where(id: SUBSCRIBE_UNTIL).first.date >= Time.zone.now
   end
+  
+  def self.latest_available_result
+    self.where(results_ready: true).order("races.id DESC").first
+  end
 
   private
   def self.date_between(other_date,begin_date,end_date)

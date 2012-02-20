@@ -23,6 +23,9 @@
             <%= link_to "Reglement", subscribe_reglement_path %>
           </li>
           <% if user_signed_in? %>
+            <li class="<%= 'active' if params[:controller] == 'results' %>">
+              <%= link_to "Uitslagen", results_path %>
+            </li>
             <li class="<%= 'active' if params[:controller] ==  'races' and params[:action] == 'index' %>">
               <%= link_to "Kalender", races_path %>
             </li>

@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20120219131042) do
     t.datetime "updated_at"
     t.index ["race_id"], :name => "index_races_on_race_id"
     t.index ["category_id"], :name => "index_races_on_category_id"
-    t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_1"
     t.foreign_key ["category_id"], "categories", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_2"
+    t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_1"
   end
 
   create_table "riders", :force => true do |t|

@@ -26,9 +26,6 @@
             <li class="<%= 'active' if params[:controller] == 'results' %>">
               <%= link_to "Uitslagen", results_path %>
             </li>
-            <li class="<%= 'active' if params[:controller] ==  'teams' and (params[:action] == 'index' or params[:action] =='show')  %>">
-              <%= link_to "Klassement", teams_path %>
-            </li>
             <li class="<%= 'active' if params[:controller] ==  'races' and params[:action] == 'index' %>">
               <%= link_to "Kalender", races_path %>
             </li>

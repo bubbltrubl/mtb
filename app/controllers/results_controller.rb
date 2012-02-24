@@ -16,16 +16,28 @@ class ResultsController < ApplicationController
   
   def new
     @race = Race.find(params[:race_id])
+    if @race.results_ready
+      redirect_to results_path, alert: 'Deze uitslag is al ingegeven.'
+      return false
+    end
   end
   
   def create
     @race = Race.find(params[:race_id])
+    if @race.results_ready
+      redirect_to results_path, alert: 'Deze uitslag is al ingegeven.'
+      return false
+    end
     rider_ids = []
     params[:result].values.each_index do |key|
       rider_ids << params[:result]["#{key}"][:rider_id].to_i
     end
-    # TODO: add validation: @race.nr_of_riders == length van rider_ids
-    CalculationEngine::calculate(@race.id, rider_ids)
+    if @race.category.nr_of_riders != rider_ids.uniq.length
+      redirect_to "/results/new/#{@race.id}", alert: 'Er klopt iets niet met het aantal renners, probeer opnieuw.'
+      return false
+    else
+      CalculationEngine::calculate(@race.id, rider_ids)
+    end
   end
   
   private

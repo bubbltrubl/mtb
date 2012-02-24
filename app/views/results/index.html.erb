@@ -1,3 +1,4 @@
+<% if @race %>
 <div class="row">
   <div class="span-one-third next_previous">
     <% if @previous_race %><%= link_to "<< #{@previous_race.name}", "/results/#{@previous_race.id}", :class => "pull-left" %><% else %>&nbsp;<% end %>
@@ -9,6 +10,7 @@
   <% if @next_race %><%= link_to "#{@next_race.name} >>", "/results/#{@next_race.id}", :class => "pull-right" %><% else %>&nbsp;<% end %>
   </div>
 </div>
+<% end %>
 <% if (@race and !@race_results.empty?) %>
   <div class="row">
     <div class="span8">

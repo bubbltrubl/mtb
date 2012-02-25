@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :admin, :only => [:destroy,:index,:show]
+  before_filter :admin, :only => [:destroy]
   before_filter :can_subscribe_check, :only => [:new,:create]
 
   def index

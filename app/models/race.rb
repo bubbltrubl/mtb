@@ -25,6 +25,15 @@ class Race < ActiveRecord::Base
       return (race_teams.empty? or race_teams.first.race_id == self.id)
     end
   end
+  
+  def possible_to_make_race_team_without_date_check(races, race_teams)
+    has_no_overlapping_race = races.index { |other_race| other_race.id != self.id and other_race.overlaps_with(self) and other_race.starts_before(self) }.nil?
+    if has_no_overlapping_race
+      return true
+    else
+      return (race_teams.empty? or race_teams.first.race_id == self.id)
+    end
+  end
 
   def starts_before(other_race)
     other_race.date > self.date

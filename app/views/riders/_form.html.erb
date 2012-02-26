@@ -12,6 +12,10 @@
     <%= f.label :cycling_team_id %><br />
     <%= f.collection_select(:cycling_team_id, CyclingTeam.all, :id, :name, :prompt => 'Selecteer ...') %>
   </div>
+  <div class="field">
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

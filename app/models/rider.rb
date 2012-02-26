@@ -8,8 +8,12 @@ class Rider < ActiveRecord::Base
   validates :value, :presence => true  
   validates :cycling_team, :presence => true
 
-  def self.search(params)
-    sql_string = "riders.active = :active"
+  def self.search(params, active)
+    if active == true
+      sql_string = "riders.active = :active"
+    else
+      sql_string = "1=1"
+    end
     sql_hash = {:active => true}
     if params
       if params[:name]

@@ -85,7 +85,7 @@ class RidersController < ApplicationController
   end
   
   def search
-    @riders = Rider.search(params)
+    @riders = Rider.search(params, true)
     @selected_riders_ids = []
     params[:riders].each { |val| @selected_riders_ids << val.to_i } unless params[:riders].nil?
 
@@ -97,7 +97,7 @@ class RidersController < ApplicationController
   
   def result_search
     params[:name] = params[:term]
-    @riders = Rider.search(params)
+    @riders = Rider.search(params, false)
     respond_to do |format|
       format.json { render json: @riders }
     end

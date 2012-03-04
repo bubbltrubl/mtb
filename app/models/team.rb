@@ -24,19 +24,6 @@ class Team < ActiveRecord::Base
     self.includes(:user).order("points DESC").all
   end
 
-  def is_second_overlapping_race_and_is_first_possible_race?(race)
-    if Race.first_possible_race == race
-      overlapping_race = race.find_earlier_overlapping_race
-      if (!overlapping_race.nil? and !race_teams.empty?)
-        return race_teams.first.race == race # if already exists 
-      elsif (!overlapping_race.nil? and race_teams.empty?)
-        return true
-      end
-      return false
-    end
-    return false
-  end
-
   def has_race_team_for(race)
     return races.include?(race)
   end

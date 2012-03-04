@@ -35,7 +35,7 @@
             </td>
           <% end %>
           <td>
-            <% if (!@team.race_teams.empty? or race == @first_possible_race) and race.can_make_race_team? %>
+            <% if (!@team.race_teams.empty? or race == @first_possible_race) %>
               <% if @editable_races.include?(race) %>
                 <% if @team.has_race_team_for(race) %>
                   <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small', 
@@ -44,7 +44,7 @@
                   <%= link_to "Creëer", "/race_teams/new/#{@team.id}/race/#{race.id}/rdtmt", :class => 'btn success small',
                       :rel => 'popover', 'data-content' => "Hiermee maak je een nieuwe wedstrijdploeg aan voor #{race.name}. Hou er rekening mee dat je ploeg voor andere wedstrijden hierdoor ook kan veranderen. Meer info vind je in het reglement.", 'data-original-title' => 'Creëer wedstrijdploeg' %>
                 <% end %>
-              <% else %>
+              <% elsif race.can_make_race_team? %>
                 <span class="popover-label label important" rel="popover" data-original-title="Niet aanpasbaar" data-content="Deze wedstrijd valt samen met een andere wedstrijd. Deze ploeg zal de overige 10 renners bevatten. Meer info vind je in het reglement">let op</span>
               <% end %>
             <% end %>

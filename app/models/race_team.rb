@@ -22,7 +22,7 @@ class RaceTeam < ActiveRecord::Base
                           {:team_id => team.id, :date => race.date})
                           .joins(:race).order("races.date DESC").limit(1).first
       race_team = race_team.load_dependencies
-      race_team = race_team.opposite unless race.possible_to_make_race_team(Race.all_except_stages)
+      race_team = race_team.opposite unless race.possible_to_make_race_team(Race.all_except_stages, team.race_teams)
     else
       race_team = race_team.load_dependencies
     end

@@ -12,7 +12,7 @@ class MyTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @races = Race.all_except_stages
-    @editable_races = @races.reject { |race| not race.possible_to_make_race_team(@races) }
+    @editable_races = Race.editable_races(@races, @team.race_teams)
     @first_possible_race = Race.first_possible_race
     show_race_team_specific unless params[:race_id].nil?
   end

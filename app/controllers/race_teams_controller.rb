@@ -22,7 +22,7 @@ class RaceTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @race = Race.find(params[:race_id])
-    unless @race.can_make_race_team?
+    unless @race.possible_to_make_race_team(Race.all_except_stages, @team.race_teams)
       redirect_to :back, :alert => "Je kan voor deze wedstrijd geen ploeg meer aanmaken"
       return false;
     end
@@ -43,7 +43,7 @@ class RaceTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @race = @race_team.race
-    unless @race.can_make_race_team?
+    unless @race.possible_to_make_race_team(Race.all_except_stages, @team.race_teams)
       redirect_to :back, :alert => "Je kan deze wedstrijdploeg niet meer wijzigen"
       return false
     end 
@@ -61,7 +61,8 @@ class RaceTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @race = Race.find(params[:race_id])
-    unless @race.can_make_race_team?
+    @team = Team.find(params[:team_id])
+    unless @race.possible_to_make_race_team(Race.all_except_stages, @team.race_teams)
       redirect_to :root, :alert => "Je kan voor deze wedstrijd geen ploeg meer aanmaken"
       return false;
     end
@@ -81,7 +82,6 @@ class RaceTeamsController < ApplicationController
         }
         format.json { render json: @race_team, status: :created, location: @race_team }
       else
-        @team = Team.find(params[:team_id])
         format.html { render action: "new" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end
@@ -96,7 +96,8 @@ class RaceTeamsController < ApplicationController
       not_allowed_to_view; return false;
     end
     @race = @race_team.race
-    unless @race.can_make_race_team?
+    @team = @race_team.team
+    unless @race.possible_to_make_race_team(Race.all_except_stages, @team.race_teams)
       redirect_to :root, :alert => "Je kan deze wedstrijdploeg niet meer wijzigen"
       return false
     end 
@@ -107,7 +108,6 @@ class RaceTeamsController < ApplicationController
         format.html { redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}", notice: 'De wedstrijdploeg is met succes gewijzigd.' }
         format.json { head :ok }
       else
-        @team = @race_team.team
         format.html { render action: "edit" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end

@@ -5,7 +5,7 @@ class RacesController < ApplicationController
   # GET /races
   # GET /races.json
   def index
-    @races = Race.includes(:category).all
+    @races = Race.where(race_id: nil).includes(:category).all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -5,11 +5,11 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
+  <div class="field datetime">
     <%= f.label :date %><br />
     <%= f.datetime_select :date %>
   </div>
-  <div class="field">
+  <div class="field datetime">
     <%= f.label :end_date %><br />
     <%= f.datetime_select :end_date %>
   </div>
@@ -22,6 +22,10 @@
     <%= f.text_field :previous_winner %>
   </div>
   <div class="field">
+    <%= f.label :race_id %><br />
+    <%= f.collection_select(:race_id, Race.where(is_tour:true).all, :id, :name, :prompt => 'Selecteer ...') %>
+  </div>
+ <div class="field">
     <%= f.label :category_id %><br />
     <%= f.collection_select(:category_id, Category.all, :id, :name, :prompt => 'Selecteer ...') %>
   </div>

@@ -43,6 +43,41 @@ class Race < ActiveRecord::Base
     (Race.date_between(other_race.date,date,end_date) or Race.date_between(other_race.end_date,date,end_date)) 
   end
   
+  def latest_stage
+    return nil if (is_tour == false or races.empty?)
+    return races.select {|stage| stage.results_ready }.sort{ |x,y| y.date <=> x.date }.first
+  end  
+
+  def get_previous_race
+    # get previous race
+    previous_race = Race.where("date < :date AND race_id IS :race_id",{:date => date, :race_id => nil}).order("date DESC").first
+    return nil if previous_race.nil?
+    # check if results ready
+    return previous_race if previous_race.results_ready
+    # if not check if is tour and if it has a stage with results ready
+    if previous_race.is_tour
+      finished_stages = Race.where("race_id = :race_id AND results_ready = :rr",{:race_id => previous_race.id, :rr => true})
+      return previous_race unless finished_stages.empty?
+    end
+    # else no previous race
+    return nil
+  end
+
+  def get_next_race
+    # get next race
+    next_race = Race.where("date > :date AND race_id IS :race_id",{:date => date, :race_id => nil}).order("date ASC").first
+    return nil if next_race.nil?
+    # check if results ready
+    return next_race if next_race.results_ready
+    # if not check if is tour and if it has a stage with results ready
+    if next_race.is_tour
+      finished_stages = Race.where("race_id = :race_id AND results_ready = :rr",{:race_id => next_race.id, :rr => true})
+      return next_race unless finished_stages.empty?
+    end
+    # else no previous race
+    return nil
+  end
+  
   def self.all_except_stages
     return Race.where(race_id: nil).all
   end
@@ -60,7 +95,7 @@ class Race < ActiveRecord::Base
   end
   
   def self.latest_available_result
-    self.where(results_ready: true, race_id: nil).order("races.id DESC").first
+    race = self.where(results_ready: true).order("races.id DESC").first
   end
 
   private

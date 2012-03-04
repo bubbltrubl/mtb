@@ -5,7 +5,7 @@ module CalculationEngine
         # Get race
         race = Race.where(id: race_id).includes(:category).first
         # Get riders
-        riders_array = Rider.where("id IN (:ids)",{:ids => riders_ids}).all
+        riders_array = Rider.where("id IN (:ids)", {:ids => riders_ids} ).all
         # Add riders in correct order
         riders = []
         riders_ids.each do |rider_id|
@@ -21,8 +21,14 @@ module CalculationEngine
         teams = Team.all
         # Make hash of rider with points
         rider_points = make_rider_points(riders,points)
+        # if race is a stage
+        unless race.race.nil?
+          race_or_tour = race.race
+        else
+          race_or_tour = race
+        end
         # Get all race_teams
-        race_teams = get_all_race_teams(race,teams)
+        race_teams = get_all_race_teams(race_or_tour, teams)
         # Save team results => create team_results
         team_points = {}
         race_teams.each do |race_team|

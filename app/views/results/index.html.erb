@@ -4,14 +4,49 @@
     <% if @previous_race %><%= link_to "<< #{@previous_race.name}", "/results/#{@previous_race.id}", :class => "pull-left" %><% else %>&nbsp;<% end %>
   </div>
   <div class="span-one-third aligned-center">
-    <h3 class="well"><% if @race %><%= @race.name %><% end %></h3>
+    <h3 id="race-title" class="well"><% if @race %><%= @race.name %><% end %></h3>
   </div>
   <div class="span-one-third next_previous">
   <% if @next_race %><%= link_to "#{@next_race.name} >>", "/results/#{@next_race.id}", :class => "pull-right" %><% else %>&nbsp;<% end %>
   </div>
 </div>
 <% end %>
-<% if (@race and !@race_results.empty?) %>
+<% if (@stages and @stage) %>
+    <div id="stages-pagination" class="pagination">
+      <ul>
+        <li class="prev<%= ' disabled' if @stages.index(@stage) == 0 %>">
+          <% link = "#" %>
+          <% if @stages.index(@stage) != 0 %>
+            <% link_id = @stages[@stages.index(@stage)-1].id %>
+            <% link = "/results/#{link_id}" %>
+          <% end %>
+          <a href="<%= link %>">&larr; Vorige</a>
+        </li>
+        <% passed_stages = [] %>
+        <% @stages.each_with_index do |stage,i| %>
+          <li class="<%= 'active' if stage == @stage %><%= ' disabled' unless stage.results_ready %>">
+            <% if stage.results_ready %>
+              <%= link_to "Rit #{i+1}", "/results/#{stage.id}" %>
+            <% else %>
+              <%= link_to "Rit #{i+1}", "#" %>
+            <% end %>
+          </li>
+          <% passed_stages << stage if stage.results_ready %>
+        <% end %>
+        <li class="next<%= ' disabled' if passed_stages.index(@stage) == passed_stages.length-1 %>">
+          <% link = "#" %>
+          <% if passed_stages.index(@stage) != passed_stages.length-1 %>
+            <% if passed_stages.index(@stage) %>
+              <% link_id = passed_stages[passed_stages.index(@stage)+1].id %>
+              <% link = "/results/#{link_id}" %>
+            <% end %>
+          <% end %>
+          <a href="<%= link %>">Volgende &rarr;</a>
+        </li>
+      </ul>
+    </div>
+<% end %>
+<% if (@race and @race_results and !@race_results.empty?) %>
   <div class="row">
     <div class="span8">
       <table class="bordered-table zebra-striped">

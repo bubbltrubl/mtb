@@ -1,5 +1,8 @@
 Megatombike::Application.routes.draw do
-  
+  get "payments" => "payments#index"
+  post "payments/set_paid/:team_id" => "payments#set_paid"
+  post "payments/set_unpaid/:team_id" => "payments#set_unpaid"
+
   get "results/new/:race_id" => "results#new"
   post "results/create/:race_id" => "results#create"
   get "results/:race_id" => "results#index"

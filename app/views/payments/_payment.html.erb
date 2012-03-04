@@ -1,0 +1,9 @@
+  <td><%= team.user.username %></td>
+  <td><%= team.name %></td>
+  <td>
+    <% unless team.paid %>
+      <%= link_to "Zet betaald", "/payments/set_paid/#{team.id}", :method => :post, :remote => true, :class => 'btn success small' %>
+    <% else %>
+      <%= link_to "Zet niet betaald", "/payments/set_unpaid/#{team.id}", :method => :post, :remote => true, :class => 'btn danger small' %> 
+    <% end %>
+</td>

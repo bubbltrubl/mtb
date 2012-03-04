@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Betalingen</h1>
+</div>
+<br/>
+<table id="payments" class="zebra-striped">
+  <thead>
+    <tr>
+      <th>Ploegleider</th>
+      <th>Ploegnaam</th>
+      <th>Betaald</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @teams.each do |team| %>
+    <tr id="payment_<%= team.id %>">
+      <%= render :partial => "payment", :locals => {:team => team} %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

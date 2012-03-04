@@ -14,6 +14,18 @@ class RaceTeam < ActiveRecord::Base
     opposite.riders = team_riders.reject { |rider| self.riders.include?(rider) }
     opposite
   end
+  
+  def self.exists_for_team_and_race(team,race)
+    race_team = RaceTeam.where(race_id: race.id, team_id: team.id).limit(1).first
+    if race_team.nil?
+      race_team = RaceTeam.where("team_id = :team_id AND races.date < :date",
+                          {:team_id => team.id, :date => race.date})
+                          .joins(:race).order("races.date DESC").limit(1).first
+      return race_team.nil? ? false : true
+    else
+      return true
+    end
+  end
 
   def self.get_by_team_and_race(team,race)
     race_team = RaceTeam.where(race_id: race.id, team_id: team.id).limit(1).first
@@ -21,6 +33,7 @@ class RaceTeam < ActiveRecord::Base
       race_team = RaceTeam.where("team_id = :team_id AND races.date < :date",
                           {:team_id => team.id, :date => race.date})
                           .joins(:race).order("races.date DESC").limit(1).first
+      return nil if race_team.nil?
       race_team = race_team.load_dependencies
       race_team = race_team.opposite unless race.possible_to_make_race_team(Race.all_except_stages, team.race_teams)
     else

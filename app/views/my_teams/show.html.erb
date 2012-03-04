@@ -31,7 +31,9 @@
           <td><%= l race.date.to_date, :format => :short %><%= " - #{l(race.end_date.to_date, :format => :short)}" if race.is_tour %></td>
           <% unless @team.race_teams.empty? %>
             <td>
-              <%= link_to "Bekijk", "/my_teams/#{@team.id}/race/#{race.id}", :class => 'btn small'%>
+              <% if RaceTeam.exists_for_team_and_race(@team, race) %>
+                <%= link_to "Bekijk", "/my_teams/#{@team.id}/race/#{race.id}", :class => 'btn small'%>
+              <% end %>
             </td>
           <% end %>
           <td>

@@ -1,7 +1,13 @@
 <div class="page-header">
   <h1>Inloggen</h1>
 </div>
-
+<div class="social">
+  <%= link_to "Log in met je facebook account", "/auth/facebook", :class => "social_buttons fb" %>
+  <%= link_to "Log in met je twitter account", "/auth/twitter", :class => "social_buttons twt" %>
+  <br/>
+  <%= link_to "Wat is dit?","#", :class => "whats_this", :rel => 'popover', 'data-content' => "Als je een facebook of twitter account hebt, kan je hiermee inloggen. Dit biedt extra mogelijkheden zoals het vergelijken met vrienden. Je moet je account wel eerst verbinden via 'Mijn profiel'. Hiervoor moet je even op de normale manier inloggen.", 'data-original-title' => 'Log in met facebook/twitter' %>
+</div>
+<h3 class="more_bottom_margin">Log in met je mega.tom.bike account</h3>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div class="clearfix">
     <%= f.label :email %>

@@ -204,3 +204,53 @@ p.terms {
   margin-left: 10px;
   width: 450px;
 }
+
+div.social {
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  clear: both;
+  width: 100%;
+  float: left;
+}
+
+a.social_buttons {
+  height: 18px;
+  padding-left: 36px;
+  text-align: left;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  display: block;
+  float: left;
+  width: 60%;
+}
+a.social_buttons.fb {
+   background: url('social/facebook_32.png') left center no-repeat;
+}
+a.social_buttons.twt {
+  background: url('social/twitter_32.png') left center no-repeat;
+}
+
+h3.more_bottom_margin {
+  margin-bottom: 8px;
+}
+
+.right_margin {
+  margin-right: 10px;
+}
+
+.whats_this {
+  clear: both;
+  float: left;
+  margin-top: 10px;
+}
+
+.avatar.current {
+  background: #62C462;
+}
+
+.use_this {
+  float: left;
+  margin-left: 5px;
+  margin-top: 14px;
+}

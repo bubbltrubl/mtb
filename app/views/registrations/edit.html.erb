@@ -1,7 +1,49 @@
 <div class="page-header">
-  <h1>Wijzig je profiel</h1>
+  <h1>Mijn profiel</h1>
 </div>
-
+<% authentications = current_user.authentications.all %>
+<% fb_auth_count = 0 %>
+<% twt_auth_count = 0 %>
+<% unless authentications.empty? %>
+<div class="social">
+  <h3>Gekoppelde accounts</h3>
+  <% authentications.each do |authentication| %>
+    <% if authentication.provider == "facebook" %>
+      <% fb_auth_count += 1 %>
+      <%= link_to authentication.name, "#", :class => "social_buttons fb" %>  
+      <%= link_to "Voeg een ander account toe", "/auth/facebook", :class => "pull-right" %>
+      <%= link_to "Ontkoppel", "/authentications/#{authentication.id}", :confirm => 'Ben je zeker dat je dit facebook account wilt ontkoppelen', :method => :delete, :class => "right_margin pull-right" %>
+    <% end %>
+    <% if authentication.provider == "twitter" %>
+      <% twt_auth_count += 1 %> 
+      <%= link_to "@#{authentication.name}", "#", :class => "social_buttons twt" %>  
+      <%= link_to "Voeg een ander account toe", "/auth/twitter", :class => "pull-right" %>
+      <%= link_to "Ontkoppel", "/authentications/#{authentication.id}", :confirm => 'Ben je zeker dat je dit twitter account wilt ontkoppelen', :method => :delete, :class => "right_margin pull-right" %>
+    <% end %>
+  <% end %>
+</div>
+<% end %>
+<% if (fb_auth_count == 0 or twt_auth_count == 0) %>
+<div class="social">
+  <% if (fb_auth_count != 0 or twt_auth_count != 0) %>
+    <h3>Mogelijke andere accounts die je kan koppelen</h3>
+  <% end %>
+  <%= link_to "Voeg je facebook account toe", "/auth/facebook", :class => "social_buttons fb" if fb_auth_count == 0 %>
+  <%= link_to "Voeg je twitter account toe", "/auth/twitter", :class => "social_buttons twt" if twt_auth_count == 0 %>
+  <br/>
+  <%= link_to "Wat is dit?","#", :class => "whats_this", :rel => 'popover', 'data-content' => "Als je een facebook of twitter account hebt, kan je dit aan je profiel koppelen. Dit biedt extra mogelijkheden zoals het vergelijken met vrienden. Vanaf dat je account gekoppeld is, kan je hiermee ook inloggen.", 'data-original-title' => 'Voeg je facebook/twitter account toe' %>
+</div>
+<% end %>
+<div class="social">
+  <h3>Mogelijke profielfoto's</h3>
+  <div id="possible_profile_pics">
+    <%= render :partial => "authentication/avatars", 
+      :locals => {:auths => current_user.possible_auths_for_image,
+                  :current_auth => current_user.current_auth } 
+    %>
+  </div>
+</div>
+<h3 class="more_bottom_margin">Wijzig je profiel</h3>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 

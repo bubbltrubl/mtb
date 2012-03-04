@@ -1,5 +1,10 @@
 Megatombike::Application.routes.draw do
-  
+  get "authentications" => "authentication#index"
+  delete "authentications/:id" => "authentication#destroy"
+  match "auth/:provider/callback" => "authentication#create"
+  match "auth/failure" => "authentication#failure"
+  post "authentications/use_this" => "authentication#use_this"
+
   get "results/new/:race_id" => "results#new"
   post "results/create/:race_id" => "results#create"
   get "results/:race_id" => "results#index"
@@ -22,6 +27,8 @@ Megatombike::Application.routes.draw do
   resources :categories
   resources :races
 
+  get "teams/filter_twt"
+  get "teams/filter_fb"
   post "teams/add_rider"
   post "teams/remove_rider"
 

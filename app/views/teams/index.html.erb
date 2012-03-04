@@ -14,32 +14,15 @@
         <% @teams.each_with_index do |team,key| %>
           <tr>
             <td><%= key + 1 %></td>
-            <td><%= link_to team.name, team %></span></td>
-            <td><%= link_to team.user.username, team %></td>
-            <td><%= link_to team.points, team %></td>
+            <td><%= link_to team.name, team, :remote => true %></span></td>
+            <td><%= link_to team.user.username, team, :remote => true %></td>
+            <td><%= link_to team.points, team, :remote => true %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-  <div class="span8">
-    <% if @team %>
-      <table class="zebra-striped">
-        <thead>
-          <th>Renner</th>
-          <th>Ploeg</th>
-          <th>Punten</th>
-        </thead>
-        <tbody>
-          <% @team.riders.each do |rider| %>
-            <tr>
-              <td><%= rider.name %></span></td>
-              <td><%= rider.cycling_team.short_name %></td>
-              <td><%= rider.points %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>   
-    <% end %>
+  <div id="team-info" class="span8">
+    <%= render :partial => "teams/show_team" %>
   </div>
 </div>

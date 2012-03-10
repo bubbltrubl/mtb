@@ -1,3 +1,16 @@
+<% if (current_user and current_user.admin?) %>
+  <div id="new_result">
+    <%= form_tag "/results/new", :method => :get do %>
+      <div class="clearfix">
+        <%= label_tag "race_id", "Nieuwe uitslag voor:" %>
+        <div class="inline-inputs">
+          <%= select_tag "race_id", options_from_collection_for_select(@new_result_races, :id, :display_name) %> 
+          <%= submit_tag "Go!", :class => "btn primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <% if @race %>
 <div class="row">
   <div class="span-one-third next_previous">
@@ -11,12 +24,15 @@
   </div>
 </div>
 <% end %>
-<% if (@stages and @stage) %>
+<% if (@race.is_tour and @race.results_ready) %>
+  <%= link_to "Klassement", "/results/#{@race.id}", :class => "results_classification#{' active' if @stage.nil?}" %>
+<% end %>
+<% if (@stages) %>
     <div id="stages-pagination" class="pagination">
       <ul>
-        <li class="prev<%= ' disabled' if @stages.index(@stage) == 0 %>">
+        <li class="prev<%= ' disabled' if (@stages.index(@stage) == 0 or @stage.nil?) %>">
           <% link = "#" %>
-          <% if @stages.index(@stage) != 0 %>
+          <% if (@stage and @stages.include?(@stage) and @stages.index(@stage) != 0) %>
             <% link_id = @stages[@stages.index(@stage)-1].id %>
             <% link = "/results/#{link_id}" %>
           <% end %>
@@ -33,10 +49,10 @@
           </li>
           <% passed_stages << stage if stage.results_ready %>
         <% end %>
-        <li class="next<%= ' disabled' if passed_stages.index(@stage) == passed_stages.length-1 %>">
+        <li class="next<%= ' disabled' if (passed_stages.index(@stage) == passed_stages.length-1 or @stage.nil?) %>">
           <% link = "#" %>
           <% if passed_stages.index(@stage) != passed_stages.length-1 %>
-            <% if passed_stages.index(@stage) %>
+            <% if (@stage and @stages.include?(@stage) and passed_stages.index(@stage)) %>
               <% link_id = passed_stages[passed_stages.index(@stage)+1].id %>
               <% link = "/results/#{link_id}" %>
             <% end %>

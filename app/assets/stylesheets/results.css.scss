@@ -18,3 +18,30 @@
 #race-title.well {
   margin-bottom: 10px;
 }
+
+a.results_classification {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  float: left;
+  line-height: 34px;
+  padding: 0 14px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+
+  &:hover, &.active {
+    background-color: #C7EEFE;
+  }
+}
+
+#new_result {
+  border-bottom: 1px solid #DDD;
+  width: 100%;
+  margin-bottom: 10px;
+  label {
+    text-align: left;
+  }
+  .btn {
+    padding-top: 5px;
+    padding-bottom: 3px;
+  }
+}

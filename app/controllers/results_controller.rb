@@ -5,6 +5,7 @@ class ResultsController < ApplicationController
   before_filter :admin, :only => [:new, :create]
   
   def index
+    @new_result_races = Race.where(results_ready: false).all
     if params[:race_id]
       race = Race.find(params[:race_id])
     else
@@ -39,7 +40,7 @@ class ResultsController < ApplicationController
       rider_ids << params[:result]["#{key}"][:rider_id].to_i
     end
     if @race.category.nr_of_riders != rider_ids.uniq.length
-      redirect_to "/results/new/#{@race.id}", alert: 'Er klopt iets niet met het aantal renners, probeer opnieuw.'
+      redirect_to "/results/new/?race_id=#{@race.id}", alert: 'Er klopt iets niet met het aantal renners, probeer opnieuw.'
       return false
     else
       CalculationEngine::calculate(@race.id, rider_ids)

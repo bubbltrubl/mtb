@@ -12,6 +12,13 @@ class Race < ActiveRecord::Base
   validates :previous_winner, :presence => true
   validates :category, :presence => true
 
+  def display_name
+    unless race.nil?
+      return "#{race.name} > #{name}"
+    end
+    return name
+  end
+
   def can_make_race_team?
     date >= Time.zone.now
   end

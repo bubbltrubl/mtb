@@ -1,8 +1,33 @@
 <div class="page-header">
   <h1>Klassement</h1>
 </div>
+
 <div class="row">
   <div class="span8">
+    <% if current_user.is_beta_tester %>
+      <% if current_user.has_authentications? %>
+        <ul id="social_filters">
+          <li>
+            <% all_disabled = params[:action] == 'index' ? " disabled" : "" %>
+            <%= link_to "Toon iedereen", teams_path, :class => "btn small#{all_disabled}" %>
+          </li>
+          <% if current_user.has_facebook_auth? %>
+            <% fb_disabled = params[:action] == 'filter_fb' ? " disabled" : "" %>
+            <li>
+              <%= link_to "Toon enkel je facebook vrienden", "/teams/filter_fb", 
+                          :class => "btn small primary#{fb_disabled}" %>
+            </li>
+          <% end %>
+          <% if current_user.has_twitter_auth? %>
+            <% twt_disabled = params[:action] == 'filter_twt' ? " disabled" : "" %>
+            <li>
+              <%= link_to "Toon enkel je twitter vrienden", "/teams/filter_twt", 
+                          :class => "btn small info #{twt_disabled}" %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
     <table class="bordered-table zebra-striped">
       <thead>
         <th>#</th>
@@ -12,34 +37,17 @@
       </thead>
       <tbody>
         <% @teams.each_with_index do |team,key| %>
-          <tr>
+          <tr<%= " class='my_team'" if @my_teams.include?(team) %>>
             <td><%= key + 1 %></td>
-            <td><%= link_to team.name, team %></span></td>
-            <td><%= link_to team.user.username, team %></td>
-            <td><%= link_to team.points, team %></td>
+            <td><%= link_to team.name, team, :remote => true %></span></td>
+            <td><%= link_to team.user.username, team, :remote => true %></td>
+            <td><%= link_to team.points, team, :remote => true %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-  <div class="span8">
-    <% if @team %>
-      <table class="zebra-striped">
-        <thead>
-          <th>Renner</th>
-          <th>Ploeg</th>
-          <th>Punten</th>
-        </thead>
-        <tbody>
-          <% @team.riders.each do |rider| %>
-            <tr>
-              <td><%= rider.name %></span></td>
-              <td><%= rider.cycling_team.short_name %></td>
-              <td><%= rider.points %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>   
-    <% end %>
+  <div id="team-info" class="span8">
+    <%= render :partial => "teams/show_team" %>
   </div>
 </div>

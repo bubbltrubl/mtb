@@ -1,0 +1,8 @@
+<% auths.each do |auth| %>
+<span class="avatar<%= ' current' if auth == current_auth %>">
+    <%= image_tag auth.image_url, :class => "thumbnail" %>
+    <% unless auth == current_auth %>
+      <%= link_to "Gebruik deze", "#", :class => "use_this", "data-id" => "#{auth.id}" %>
+    <% end %>
+  </span>
+<% end %>

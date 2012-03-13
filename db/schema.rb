@@ -11,7 +11,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219131042) do
+ActiveRecord::Schema.define(:version => 20120313213222) do
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username"
+    t.boolean  "admin",                                 :default => false
+    t.boolean  "is_beta_tester",                        :default => false
+    t.index ["email"], :name => "index_users_on_email", :unique => true
+    t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  end
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id",                           :null => false
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_url"
+    t.string   "token"
+    t.string   "secret"
+    t.string   "name"
+    t.boolean  "use_as_picture", :default => false
+    t.index ["user_id"], :name => "index_authentications_on_user_id"
+    t.foreign_key ["user_id"], "users", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "authentications_ibfk_1"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -43,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20120219131042) do
     t.datetime "updated_at"
     t.index ["race_id"], :name => "index_races_on_race_id"
     t.index ["category_id"], :name => "index_races_on_category_id"
-    t.foreign_key ["category_id"], "categories", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_2"
     t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_1"
+    t.foreign_key ["category_id"], "categories", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_2"
   end
 
   create_table "riders", :force => true do |t|
@@ -70,25 +105,6 @@ ActiveRecord::Schema.define(:version => 20120219131042) do
     t.index ["rider_id"], :name => "index_race_results_on_rider_id"
     t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "race_results_ibfk_1"
     t.foreign_key ["rider_id"], "riders", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "race_results_ibfk_2"
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "",    :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username"
-    t.boolean  "admin",                                 :default => false
-    t.index ["email"], :name => "index_users_on_email", :unique => true
-    t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   end
 
   create_table "teams", :force => true do |t|

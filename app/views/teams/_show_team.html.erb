@@ -1,0 +1,30 @@
+<% if @team %>
+  <div class="small_profile">
+    <span class="avatar">
+      <%= image_tag avatar_url(@team.user), :class => 'thumbnail' %>
+    </span>
+    <span class="user_info">
+      <h3><%= @team.name %></h3>
+      <h4><%= @team.user.username %></h4>
+    </span>
+    <span class="points">
+      <%= @team.points %>
+    </span>
+  </div>
+  <table class="zebra-striped">
+    <thead>
+      <th>Renner</th>
+      <th>Ploeg</th>
+      <th>Punten</th>
+    </thead>
+    <tbody>
+      <% @team.riders.each do |rider| %>
+        <tr>
+          <td><%= rider.name %></span></td>
+          <td><%= rider.cycling_team.short_name %></td>
+          <td><%= rider.points %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>   
+<% end %>

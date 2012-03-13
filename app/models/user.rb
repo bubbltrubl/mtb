@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :teams
+  has_many :authentications
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -13,4 +14,33 @@ class User < ActiveRecord::Base
                         }
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
+  
+  def image_url
+    return current_auth.image_url unless current_auth.nil?
+    return nil
+  end
+
+  def has_authentications?
+    not authentications.empty?
+  end
+
+  def has_facebook_auth?
+    not authentications.select { |auth| auth.provider == 'facebook' }.empty?
+  end
+
+  def has_twitter_auth?
+    not authentications.select { |auth| auth.provider == 'twitter' }.empty?
+  end
+  
+  def current_auth
+    possible_auths = possible_auths_for_image
+    return nil if possible_auths.empty?
+    current = possible_auths.select { |auth| auth.use_as_picture == true }.first
+    current = possible_auths.first if current.nil?
+    return current
+  end
+
+  def possible_auths_for_image
+    return authentications.select { |auth| !auth.image_url.nil? }
+  end
 end

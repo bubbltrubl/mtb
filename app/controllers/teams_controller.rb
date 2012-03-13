@@ -9,11 +9,32 @@ class TeamsController < ApplicationController
 
   def show
     @teams = Team.all_with_users
-    @team = Team.where(:id => params[:id]).includes({:riders => :cycling_team}).first
+    @team = Team.where(:id => params[:id]).includes({:riders => :cycling_team},{:user => :authentications}).first
     respond_to do |format|
+      format.js
       format.html { render "index"}
     end
   end
+
+  def filter_fb
+    @teams = Team.all_with_users
+    render "index" unless current_user
+    users = get_fb_friends
+    @teams = @teams.select { |team| users.include?(team.user) }
+    @my_teams.each { |team| @teams << team }
+    @teams.sort! {|x,y| y.points <=> x.points }
+    render "index"
+  end
+
+  def filter_twt
+    @teams = Team.all_with_users
+    render "index" unless current_user
+    users = get_twt_friends
+    @teams = @teams.select { |team| users.include?(team.user) }
+    @my_teams.each { |team| @teams << team }
+    @teams.sort! {|x,y| y.points <=> x.points }
+    render "index"
+ end
 
   def new
     @team = Team.new
@@ -100,5 +121,26 @@ class TeamsController < ApplicationController
     @cycling_teams = []
     @cycling_teams << CyclingTeam.new(:name => "Alle ploegen")
     CyclingTeam.where(:active => true).order("name ASC").all.each { |team| @cycling_teams << team }
+  end
+  
+  def get_fb_friends
+    fb_auth = current_user.authentications.select { |auth| auth.provider == 'facebook' }.first
+    user = FbGraph::User.fetch(fb_auth.uid, :access_token => fb_auth.token)
+    uids = user.friends.collect { |friend| friend.identifier }
+    auths = Authentication.where("uid IN (:uids) and provider = :provider", {:uids => uids, :provider => 'facebook'}).all
+    ids = auths.collect { |user| user.user_id }
+    return User.where("id IN (:ids)", {:ids => ids}).all
+  end
+
+  def get_twt_friends
+    twt_auth = current_user.authentications.select { |auth| auth.provider == 'twitter' }.first
+    client = Twitter::Client.new(
+      :oauth_token => twt_auth.token,
+      :oauth_token_secret => twt_auth.secret
+    )
+    uids = client.friend_ids(twt_auth.uid.to_i).ids
+    auths = Authentication.where("uid IN (:uids) and provider = :provider", {:uids => uids, :provider => 'twitter'}).all
+    ids = auths.collect { |user| user.user_id }
+    return User.where("id IN (:ids)", {:ids => ids}).all
   end
 end

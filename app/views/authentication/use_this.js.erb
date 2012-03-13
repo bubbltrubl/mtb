@@ -1,0 +1,1 @@
+$("#possible_profile_pics").html("<%= escape_javascript(render(:partial => 'authentication/avatars',:locals=>{:auths=>current_user.possible_auths_for_image,:current_auth=>current_user.current_auth}))%>");

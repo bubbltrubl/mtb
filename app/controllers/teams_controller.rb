@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :admin, :only => [:destroy,:index,:show]  
+  before_filter :admin, :only => [:destroy,:index,:show]
+  before_filter :can_subscribe_check, :only => [:new,:create]
 
   def index
     @teams = Team.all_with_users
@@ -18,7 +19,7 @@ class TeamsController < ApplicationController
     @team = Team.new
     @team.budget = 2000000
     @selected_riders = []
-    @selected_riders_ids = [] 
+    @selected_riders_ids = []
     get_cycling_teams
   end
 

@@ -27,7 +27,7 @@
       </div>
   </div>
   </section>
-  <% if current_user.nil? or @my_teams.empty? %>
+  <% if ((current_user.nil? or @my_teams.empty?) and @can_subscribe) %>
     <section id="subscribe">
       <div class="container">
         <div class="row">

@@ -5,7 +5,9 @@
   <% @teams.each do |team| %>
     <li<%= " class='active'" if team.id == @team.id %>><%= link_to team.name, "/my_teams/#{team.id}" %></li>
   <% end %>
-  <li><%= link_to "+ Maak een nieuwe ploeg", new_team_path %></li>
+  <% if @can_subscribe %>
+    <li><%= link_to "+ Maak een nieuwe ploeg", new_team_path %></li>
+  <% end %>
 </ul>
 <div class="row">
   <div id="my_team_races" class="span8">
@@ -37,7 +39,7 @@
             </td>
           <% end %>
           <td>
-            <% if (!@team.race_teams.empty? or race == @first_possible_race) %>
+            <% if (!@team.race_teams.empty? or (race == @first_possible_race and @can_subscribe)) %>
               <% if @editable_races.include?(race) %>
                 <% if @team.has_race_team_for(race) %>
                   <%= link_to "Wijzig", edit_race_team_path(@team.get_race_team_for(race)), :class => 'btn info small', 

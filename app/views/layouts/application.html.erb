@@ -15,17 +15,18 @@
       <div class="container">
         <%= link_to "mega.tom.bike", root_path, :class => 'brand' %> 
         <ul class="nav">
-          <% unless user_signed_in? %>
+          <% if (!user_signed_in? and @can_subscribe) %>
             <li><%= link_to "Inschrijven", new_user_registration_path %></li>
-          <% else %>
-            <%= render :partial => "my_teams/menu" %> 
           <% end %>
+          <%= render :partial => "my_teams/menu" if user_signed_in? %> 
           <li class="<%= 'active' if params[:controller] == 'subscribe' and params[:action] == 'reglement' %>">
             <%= link_to "Reglement", subscribe_reglement_path %>
           </li>
-          <li class="<%= 'active' if params[:controller] ==  'races' and params[:action] == 'index' %>">
-            <%= link_to "Kalender", races_path %>
-          </li>
+          <% if user_signed_in? %>
+            <li class="<%= 'active' if params[:controller] ==  'races' and params[:action] == 'index' %>">
+              <%= link_to "Kalender", races_path %>
+            </li>
+          <% end %>
         </ul>
         <% if user_signed_in? %>
           <div class="pull-right">

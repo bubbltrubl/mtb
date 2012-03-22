@@ -24,7 +24,7 @@ class RaceTeamsController < ApplicationController
     @race = Race.find(params[:race_id])
     unless @race.possible_to_make_race_team(Race.all_except_stages, @team.race_teams)
       redirect_to :back, :alert => "Je kan voor deze wedstrijd geen ploeg meer aanmaken"
-      return false;
+      return false
     end
     @race_team = RaceTeam.new(:team_id => @team.id, :race_id => @race.id)
     @selected_riders = []
@@ -64,7 +64,7 @@ class RaceTeamsController < ApplicationController
     @team = Team.find(params[:team_id])
     unless @race.possible_to_make_race_team(Race.all_except_stages, @team.race_teams)
       redirect_to :root, :alert => "Je kan voor deze wedstrijd geen ploeg meer aanmaken"
-      return false;
+      return false
     end
     @race_team.riders = make_selection(params[:race_team])
     @selected_riders = @race_team.riders

@@ -1,4 +1,6 @@
 class Race < ActiveRecord::Base
+  SUBSCRIBE_UNTIL = 6 #ID of the race
+  
   belongs_to :category
   belongs_to :race
   has_many :races
@@ -40,6 +42,10 @@ class Race < ActiveRecord::Base
 
   def self.first_possible_race
    self.where("date > :now", {:now => Time.zone.now}).order("date ASC").first
+  end
+  
+  def self.can_subscribe?
+    self.where(id: SUBSCRIBE_UNTIL).first.date >= Time.zone.now
   end
 
   private

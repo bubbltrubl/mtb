@@ -102,7 +102,7 @@ class Race < ActiveRecord::Base
   end
   
   def self.latest_available_result
-    race = self.where(results_ready: true).order("races.id DESC").first
+    race = self.where(results_ready: true).order("races.end_date DESC").first
   end
 
   private

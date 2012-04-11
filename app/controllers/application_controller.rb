@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :current_user_teams
   before_filter :can_subscribe
 
+  respond_to_mobile_requests
+
   private
 
   def admin

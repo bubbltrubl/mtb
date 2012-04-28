@@ -1,0 +1,26 @@
+<% content_for :mobile_back do %>
+  <%= link_to "Terug", "/my_teams/#{@team.id}", :class => 'ui-btn-left', 'data-role' => 'button', 'data-mini' => 'true', 'data-icon' => 'arrow-l', 'data-iconpos' => 'notext' %>
+<% end %>
+<h3><%= @race.name %></h3>
+<% if (!@race_teams.empty? or race == @first_possible_race) %>
+  <% if @editable_races.include?(@race) %>
+    <% unless @race_teams.select{ |rt| rt.race_id == @race.id }.first.nil? %>
+      <%= link_to "Wijzig deze wedstrijdploeg", edit_race_team_path(@race_team), 'data-role' => 'button', 'data-theme' => 'b' %>
+    <% else %>
+      <%= link_to "Creëer een wedstrijdploeg", "/race_teams/new/#{@team.id}/race/#{@race.id}/rdtmt", 'data-role' => 'button', 'data-theme' => 'e' %>
+    <% end %>
+  <% elsif @race.can_make_race_team? %>
+    <div data-role="collapsible" data-mini="true" data-content-theme="c">
+      <h3>Niet aanpasbaar</h3>
+      <p>Deze wedstrijd valt samen met een andere wedstrijd. Deze ploeg zal de overige 10 renners bevatten. Meer info vind je in het reglement</p>
+    </div>
+  <% end %>
+<% end %>
+<ul data-role="listview" data-inset="true">
+  <% @team.riders.each do |rider| %>
+    <li<%= " data-theme='b'" if @race_team.riders.include?(rider)%>>
+      <%= rider.name %>
+      <% if @race_team.riders.include?(rider) %><span class="ui-li-check ui-icon ui-icon-ok"></span><% end %>
+    </li>
+  <% end %>
+</ul>

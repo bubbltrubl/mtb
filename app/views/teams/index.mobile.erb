@@ -1,0 +1,9 @@
+<ol data-role="listview">
+  <% @teams.each do |team| %>
+    <li<%= " data-theme='b'" if @my_teams.include?(team) %>>
+      <%= team.name %>
+      <span class="ui-li-subtitle"><%= team.user.username %></span>
+      <span class="ui-li-count"><%= team.points %></span>
+    </li>
+  <% end %>
+</ol>

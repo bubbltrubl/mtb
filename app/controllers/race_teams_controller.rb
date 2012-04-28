@@ -30,6 +30,7 @@ class RaceTeamsController < ApplicationController
     @selected_riders = []
     @selected_riders_ids = []
     respond_to do |format|
+      format.mobile
       format.html # new.html.erb
       format.json { render json: @race_team }
     end
@@ -71,6 +72,15 @@ class RaceTeamsController < ApplicationController
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id }
     respond_to do |format|
       if @race_team.save
+        format.mobile {
+          if @redirect_to_my_teams == "/rdtmt"
+            redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}",
+                        notice: 'Wedstrijdploeg is met succes aangemaakt.'
+          else
+            redirect_to '/subscribe/finished', 
+                        notice: 'Wedstrijdploeg is met succes aangemaakt.' 
+          end
+        } 
         format.html { 
           if @redirect_to_my_teams == "/rdtmt"
             redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}",
@@ -82,6 +92,7 @@ class RaceTeamsController < ApplicationController
         }
         format.json { render json: @race_team, status: :created, location: @race_team }
       else
+        format.mobile { render action: "new" }
         format.html { render action: "new" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end
@@ -105,9 +116,11 @@ class RaceTeamsController < ApplicationController
     @selected_riders_ids = @selected_riders.collect { |rider| rider.id}
     respond_to do |format|
       if @race_team.update_attributes(:riders => @selected_riders)
+        format.mobile { redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}", notice: 'De wedstrijdploeg is met succes gewijzigd.' }
         format.html { redirect_to "/my_teams/#{@race_team.team_id}/race/#{@race_team.race_id}", notice: 'De wedstrijdploeg is met succes gewijzigd.' }
         format.json { head :ok }
       else
+        format.mobile { render action: "edit" }
         format.html { render action: "edit" }
         format.json { render json: @race_team.errors, status: :unprocessable_entity }
       end

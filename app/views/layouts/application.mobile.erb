@@ -2,11 +2,37 @@
 <html>
 <head>
   <title>mega.tom.bike</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    "mobile" %>
   <%= javascript_include_tag "mobile" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  Hello mobile world!
+  <div data-role="page">
+    <div data-role="header">
+      <h1>mega.tom.bike</h1>
+      <%= yield :mobile_back %>
+      <%= button_to "logout", destroy_user_session_path, :method => :delete, :class => 'ui-btn-right', 'data-role' => 'button', 'data-mini' => 'true', 'data-icon' => 'off', 'data-iconpos' => 'notext' if user_signed_in? %>
+      <% if user_signed_in? %>
+       <div data-role="navbar" data-iconpos="top">
+        <ul>
+          <li><a data-icon="user" href="/my_teams" <% if (params[:controller] == 'my_teams' or (params[:controller] == 'race_teams' and (params[:action] == 'new' or params[:action] == 'edit' or params[:action] == 'update' or params[:action] == 'create')))  %>class="ui-btn-active"<% end %>>Mijn ploegen</a></li>
+          <li><a data-icon="list" href="/results" <% if params[:controller] == 'results' %>class="ui-btn-active"<% end %>>Uitslagen</a></li>
+          <li><a data-icon="trophy" href="/teams" <% if params[:controller] == 'teams' %>class="ui-btn-active"<% end %>>Klassement</a></li>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+    <div data-role="content"> 
+      <%= render :partial => "shared/flash_messages" %>
+      <%= yield %>    
+    </div>
+    <div data-role="footer" data-theme="c">
+      <p>
+        <%= link_to "Volledige versie", full_version_path, :class => "ui-link, ui-title" %>
+      </p>
+    </div>
+    <%= yield :mobile_fixed_footer %>
+  </div>
 </body>
 </html>

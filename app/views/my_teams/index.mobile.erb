@@ -1,0 +1,11 @@
+<% if @teams.length > 1 %>
+  <div data-role="controlgroup" data-type="horizontal" class="center">
+    <% @teams.each do |team| %>
+      <% if (@team and @team.id == team.id) %>
+        <%= link_to team.name, "/my_teams/#{team.id}", :class => 'ui-btn-active', 'data-role' => 'button' %>
+      <% else %>
+        <%= link_to team.name, "/my_teams/#{team.id}", 'data-role' => 'button' %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

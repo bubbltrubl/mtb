@@ -1,0 +1,67 @@
+<% if @race %>
+<fieldset class="result-menu">
+<div class="previous-next-arrow">
+<% if @previous_race %>
+  <%= link_to "#{@previous_race.name}", "/results/#{@previous_race.id}", 'data-role' => 'button', 'data-icon' => 'arrow-l', 'data-iconpos' => 'notext' %>
+<% else %>
+  &nbsp;
+<% end %>
+</div>
+<div class="result-title">
+<h3 class="center"><%= @race.name %></h3>
+</div>
+<div class="previous-next-arrow">
+<% if @next_race %>
+  <%= link_to "#{@next_race.name}", "/results/#{@next_race.id}", 'data-role' => 'button', 'data-icon' => 'arrow-r', 'data-iconpos' => 'notext', :class => 'pull-right' %>
+<% else %>
+  &nbsp;
+<% end %>
+</div>
+</fieldset>
+<% unless @stages %>
+<br/>
+<% end %>
+<% end %>
+<% if @stages %>
+  <% passed_stages = {} %>
+  <% selected_stage = nil %>
+  <% passed_stages["Klassement"] = "/results/#{@race.id}" if (@race.results_ready and @race.is_tour) %>
+  <% selected_stage = "/results/#{@race.id}" if @stage.nil? %>
+  <% @stages.each_with_index do |stage,index| %>
+    <% passed_stages["Rit #{index+1}"] = "/results/#{stage.id}" if stage.results_ready %>
+    <% selected_stage = "/results/#{stage.id}" if stage == @stage %>
+  <% end %>
+  <% unless passed_stages.empty? %>
+    <%= form_tag "/results/#{@race.id}", :method => :get, :id => "stages_form"  do %>
+      <%= select_tag "stages", options_for_select(passed_stages, selected_stage) %>
+    <% end %>
+    <br/>
+  <% end %>
+<% end %>
+<% if (@race and @race_results and !@race_results.empty?) %>
+  <ol data-role="listview">
+    <li data-role="list-divider">Renners</li>
+    <% @race_results.each_with_index do |race_result,index| %>
+      <li>
+        <%= race_result.rider.name %>
+        <span class="ui-li-subtitle"><%= race_result.rider.cycling_team.short_name %></span>
+        <span class="ui-li-count"><%= race_result.points %></span>
+      </li>
+    <% end %>
+  </ol>
+  <br/><br/>
+  <ol data-role="listview">
+    <li data-role="list-divider">Ploegen</li>
+    <% @team_results.each_with_index do |team_result,index| %>
+      <li>
+        <%= team_result.team.name %>
+        <span class="ui-li-subtitle"><%= team_result.team.user.username %></span>
+        <span class="ui-li-count"><%= team_result.points %></span>
+      </li>
+    <% end %>
+  </ol>
+<% elsif @race %>
+  <p>Deze wedstrijd is nog niet verreden</p>
+<% else %>
+  <p>Nog geen resultaten beschikbaar</p>
+<% end %>

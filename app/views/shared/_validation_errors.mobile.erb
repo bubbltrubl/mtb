@@ -1,0 +1,10 @@
+<% if model.errors.any? %>
+  <div data-role="collapsible" data-collapsed="false" data-content-theme="c">
+    <h3><%= model.errors.count %> <%= I18n.translate :error, :count => model.errors.count %> gevonden:</h3> 
+    <ul>
+      <% model.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

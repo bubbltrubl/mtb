@@ -1,4 +1,7 @@
 Megatombike::Application.routes.draw do
+  get "mobile_version" => "subscribe#force_mobile"
+  get "full_version" => "subscribe#force_full"
+
   get "payments" => "payments#index"
   post "payments/set_paid/:team_id" => "payments#set_paid"
   post "payments/set_unpaid/:team_id" => "payments#set_unpaid"

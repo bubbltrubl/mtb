@@ -1,0 +1,26 @@
+<% content_for :mobile_back do %>
+  <%= link_to "Terug", "/my_teams/#{@team.id}/race/#{@race.id}", :class => 'ui-btn-left', 'data-role' => 'button', 'data-mini' => 'true', 'data-icon' => 'arrow-l', 'data-iconpos' => 'notext' %>
+<% end %>
+<%= form_for @race_team, :url => url do |f| %>
+  <%= render :partial => "shared/validation_errors", :locals => {:model => @race_team} %> 
+
+  <%= f.hidden_field :team_id %>
+  <%= f.hidden_field :race_id %>
+
+  <div data-role="controlgroup">
+    <% @team.riders.each_with_index do |rider,index| %>
+      <% selected = @selected_riders_ids.include?(rider.id) ? true : false %> 
+      <%= label_tag "race_team_riders_#{index}", rider.name %>
+      <%= check_box_tag "race_team[riders][]", rider.id, selected , {:id => "race_team_riders_#{index}"} %> 
+    <% end %>
+  </div>
+
+ <div class="actions">
+    <%= f.submit "Verder" %>
+  </div>
+<% end %>
+<%= content_for :mobile_fixed_footer do %>
+    <div data-role="footer" data-position="fixed" data-theme="e">
+      <h1><span id="nr_of_selected_riders"><%= @selected_riders_ids.length %></span> renners in selectie</h1>
+    </div>
+<% end %>

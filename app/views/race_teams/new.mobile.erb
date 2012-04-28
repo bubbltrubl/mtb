@@ -1,0 +1,3 @@
+<h3><%= @race_team.race.name %></h3>
+<%= render  :partial => 'form', 
+            :locals => {:url => "/race_teams/#{@race_team.team_id}/race/#{@race_team.race_id}#{@redirect_to_my_teams}"} %>

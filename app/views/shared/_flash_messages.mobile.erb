@@ -1,0 +1,11 @@
+<% if (notice or alert) %>
+<ul data-role="listview" data-theme="<%= notice ? 'c' : 'b' %>">
+    <% if notice %>
+      <li><%= notice %></li>
+    <% end %>
+    <% if alert %>
+      <li><%= alert %></li>
+    <% end %>
+</ul>
+<br/>
+<% end %>

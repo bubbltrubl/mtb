@@ -58,6 +58,11 @@
     </div>
   </div>
   <div id="content">
+    <% if is_mobile_request? %>
+      <header class="mobile_version">
+        <%= link_to "Bekijk de mobiele versie", mobile_version_path %>
+      </header> 
+    <% end %>
     <% unless (controller_name == "subscribe" and action_name == "index") %>
       <div class="container top_margin">
       <%= render :partial => "shared/flash_messages" %>

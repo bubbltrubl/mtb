@@ -1,0 +1,10 @@
+<%= render :file => "/my_teams/index" %>
+<% if @race_team %>
+  <%= render :partial => "my_teams/show_race_team" %>
+<% else %>
+  <ul data-role="listview" data-inset="true">
+    <% @races.each do |race| %>
+      <li><%= link_to race.name, "/my_teams/#{@team.id}/race/#{race.id}" %></li>
+    <% end %>
+  </ul>
+<% end %>

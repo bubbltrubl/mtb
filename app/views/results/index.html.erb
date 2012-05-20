@@ -39,15 +39,98 @@
           <a href="<%= link %>">&larr; Vorige</a>
         </li>
         <% passed_stages = [] %>
-        <% @stages.each_with_index do |stage,i| %>
-          <li class="<%= 'active' if stage == @stage %><%= ' disabled' unless stage.results_ready %>">
-            <% if stage.results_ready %>
-              <%= link_to "Rit #{i+1}", "/results/#{stage.id}" %>
-            <% else %>
-              <%= link_to "Rit #{i+1}", "#" %>
-            <% end %>
-          </li>
+        <% @stages.each do |stage| %>
           <% passed_stages << stage if stage.results_ready %>
+        <% end %>
+        <% if @stages.length <= 9 %>
+          <% @stages.each_with_index do |stage,i| %>
+            <li class="<%= 'active' if stage == @stage %><%= ' disabled' unless stage.results_ready %>">
+              <% if stage.results_ready %>
+                <%= link_to "Rit #{i+1}", "/results/#{stage.id}" %>
+              <% else %>
+                <%= link_to "Rit #{i+1}", "#" %>
+              <% end %>
+            </li>
+          <% end %>
+        <% else %>
+          <% count = @stages.length %>
+          <% last_index = count - 1 %>
+          <% first_stage = @stages.first %>
+          <% last_stage = @stages.last %>
+          <% if @stages.include?(@stage) %>
+            <% current_index = @stages.index(@stage) %>
+          <% else %>
+            <% current_index = 0 %>
+          <% end %>
+          <% if (current_index >= 0 && current_index <= 4) %>
+            <% @stages.each_with_index do |stage,i| %>
+              <% if i <= 6 %>
+                <li class="<%= 'active' if stage == @stage %><%= ' disabled' unless stage.results_ready %>">
+                  <% if stage.results_ready %>
+                    <%= link_to "Rit #{i+1}", "/results/#{stage.id}" %>
+                  <% else %>
+                    <%= link_to "Rit #{i+1}", "#" %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %> 
+            <li class="disabled"><%= link_to "...", "#" %></li> 
+            <li class="<%= 'active' if last_stage == @stage %><%= ' disabled' unless last_stage.results_ready %>">
+              <% if last_stage.results_ready %>
+                <%= link_to "Rit #{last_index+1}", "/results/#{last_stage.id}" %>
+              <% else %>
+                <%= link_to "Rit #{last_index+1}", "#" %>
+              <% end %>
+            </li>
+          <% elsif (current_index >= (last_index - 4) && current_index <= last_index) %>
+            <li class="<%= 'active' if first_stage == @stage %><%= ' disabled' unless first_stage.results_ready %>">
+              <% if first_stage.results_ready %>
+                <%= link_to "Rit 1", "/results/#{first_stage.id}" %>
+              <% else %>
+                <%= link_to "Rit 1", "#" %>
+              <% end %>
+            </li>
+            <li class="disabled"><%= link_to "...", "#" %></li>
+            <% @stages.each_with_index do |stage,i| %>
+              <% if i >= (last_index-6) %>
+                <li class="<%= 'active' if stage == @stage %><%= ' disabled' unless stage.results_ready %>">
+                  <% if stage.results_ready %>
+                    <%= link_to "Rit #{i+1}", "/results/#{stage.id}" %>
+                  <% else %>
+                    <%= link_to "Rit #{i+1}", "#" %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %> 
+          <% else %>
+            <li class="<%= 'active' if first_stage == @stage %><%= ' disabled' unless first_stage.results_ready %>">
+              <% if first_stage.results_ready %>
+                <%= link_to "Rit 1", "/results/#{first_stage.id}" %>
+              <% else %>
+                <%= link_to "Rit 1", "#" %>
+              <% end %>
+            </li>
+            <li class="disabled"><%= link_to "...", "#" %></li>
+            <% @stages.each_with_index do |stage,i| %>
+              <% if (((current_index-2) <= i) and (i <= (current_index+2))) %>
+                <li class="<%= 'active' if stage == @stage %><%= ' disabled' unless stage.results_ready %>">
+                  <% if stage.results_ready %>
+                    <%= link_to "Rit #{i+1}", "/results/#{stage.id}" %>
+                  <% else %>
+                    <%= link_to "Rit #{i+1}", "#" %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %> 
+            <li class="disabled"><%= link_to "...", "#" %></li>
+            <li class="<%= 'active' if last_stage == @stage %><%= ' disabled' unless last_stage.results_ready %>">
+              <% if last_stage.results_ready %>
+                <%= link_to "Rit #{last_index+1}", "/results/#{last_stage.id}" %>
+              <% else %>
+                <%= link_to "Rit #{last_index+1}", "#" %>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
         <li class="next<%= ' disabled' if (passed_stages.index(@stage) == passed_stages.length-1 or @stage.nil?) %>">
           <% link = "#" %>

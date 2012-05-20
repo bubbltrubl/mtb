@@ -10,6 +10,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% show_top_margin = true %>
+  <% show_top_margin = false if (params[:controller] == 'teams' and (params[:action] == 'index' or params[:action] == 'show')) %>
   <div class="topbar" data-dropdown="dropdown">
     <div class="topbar-inner">
       <div class="container">
@@ -64,7 +66,7 @@
       </header> 
     <% end %>
     <% unless (controller_name == "subscribe" and action_name == "index") %>
-      <div class="container top_margin">
+      <div class="container<%= ' top_margin' if show_top_margin %>">
       <%= render :partial => "shared/flash_messages" %>
     <% end %>
     <%= yield %>

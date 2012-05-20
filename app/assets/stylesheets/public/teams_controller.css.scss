@@ -72,3 +72,28 @@ table tr.my_team td, table tr.my_team:hover td, table tr.my_team td:hover,
     color: #FFF;
   }
 }
+
+#team-info {
+  //position: fixed;
+  margin-top: 70px;
+}
+
+#ranking-title {
+  position: fixed;
+  z-index: 100;
+  background-color: #FFF;
+  width: 940px;
+  padding-top: 10px;
+}
+
+#ranking-teams {
+  margin-top: 70px;
+}
+
+.alert-message.alert-top-margin {
+  margin-top: 10px;
+}
+
+.alert-message.alert-bottom-less-margin {
+  margin-bottom: 8px;
+}

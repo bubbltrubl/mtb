@@ -1,11 +1,13 @@
+<% show_top_margin = true %>
+<% show_top_margin = false if (params[:controller] == 'teams' and (params[:action] == 'index' or params[:action] == 'show')) %>
 <% if notice %>
-  <div class="alert-message success">
+  <div class="alert-message success<%= ' alert-top-margin' unless show_top_margin %>">
     <a class="close" href="#">×</a>
     <p><%= notice %></p>
   </div>
 <% end %>
 <% if alert %>
-  <div class="alert-message error">
+  <div class="alert-message error<%= ' alert-bottom-less-margin' unless show_top_margin %>">
     <a class="close" href="#">×</a>
     <p><%= alert %></p>
   </div>

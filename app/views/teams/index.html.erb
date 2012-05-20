@@ -1,9 +1,9 @@
-<div class="page-header">
+<div class="page-header" id="ranking-title">
   <h1>Klassement</h1>
 </div>
 
 <div class="row">
-  <div class="span8">
+  <div id="ranking-teams" class="span8">
     <% if current_user.is_beta_tester %>
       <% if current_user.has_authentications? %>
         <ul id="social_filters">
@@ -39,9 +39,9 @@
         <% @teams.each_with_index do |team,key| %>
           <tr<%= " class='my_team'" if @my_teams.include?(team) %>>
             <td><%= key + 1 %></td>
-            <td><%= link_to team.name, team, :remote => true %></span></td>
-            <td><%= link_to team.user.username, team, :remote => true %></td>
-            <td><%= link_to team.points, team, :remote => true %></td>
+            <td><%= link_to team.name, team, :remote => true, :class => "ranking-detail-team" %></span></td>
+            <td><%= link_to team.user.username, team, :remote => true, :class => "ranking-detail-team" %></td>
+            <td><%= link_to team.points, team, :remote => true, :class => "ranking-detail-team" %></td>
           </tr>
         <% end %>
       </tbody>

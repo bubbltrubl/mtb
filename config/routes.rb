@@ -21,6 +21,8 @@ Megatombike::Application.routes.draw do
   get "my_teams/:team_id/race/:race_id" => "my_teams#show"
   get "my_teams/:team_id" => "my_teams#show"
 
+  get "teams/filter_period/:period_id" => "teams#filter_period"
+
   post "race_teams/add_rider"
   post "race_teams/remove_rider"
   post "race_teams/update_chosen"

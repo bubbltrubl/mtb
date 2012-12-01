@@ -4,30 +4,24 @@
 
 <div class="row">
   <div id="ranking-teams" class="span8">
-    <% if current_user.is_beta_tester %>
-      <% if current_user.has_authentications? %>
-        <ul id="social_filters">
-          <li>
-            <% all_disabled = params[:action] == 'index' ? " disabled" : "" %>
-            <%= link_to "Toon iedereen", teams_path, :class => "btn small#{all_disabled}" %>
-          </li>
-          <% if current_user.has_facebook_auth? %>
-            <% fb_disabled = params[:action] == 'filter_fb' ? " disabled" : "" %>
-            <li>
-              <%= link_to "Toon enkel je facebook vrienden", "/teams/filter_fb", 
-                          :class => "btn small primary#{fb_disabled}" %>
-            </li>
-          <% end %>
-          <% if current_user.has_twitter_auth? %>
-            <% twt_disabled = params[:action] == 'filter_twt' ? " disabled" : "" %>
-            <li>
-              <%= link_to "Toon enkel je twitter vrienden", "/teams/filter_twt", 
-                          :class => "btn small info #{twt_disabled}" %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% end %>
+    <ul id="social_filters">
+      <li>
+        <% all_active = params[:action] == 'index' ? " success" : "" %>
+        <%= link_to "Algemeen", teams_path, :class => "btn small#{all_active}" %>
+      </li>
+      <li>
+        <% period1_active = (params[:action] == 'filter_period' and params[:period_id] == '1') ? " success" : "" %>
+        <%= link_to "Voorjaar", "/teams/filter_period/1", :class => "btn small#{period1_active}" %>
+      </li>
+      <li>
+        <% period2_active = (params[:action] == 'filter_period' and params[:period_id] == '2') ? " success" : "" %>
+        <%= link_to "Tour", "/teams/filter_period/2", :class => "btn small#{period2_active}" %>
+      </li>
+      <li>
+        <% period3_active = (params[:action] == 'filter_period' and params[:period_id] == '3') ? " success" : "" %>
+        <%= link_to "Najaar", "/teams/filter_period/3", :class => "btn small#{period3_active}" %>
+      </li>
+    </ul>
     <table class="bordered-table zebra-striped">
       <thead>
         <th>#</th>
@@ -41,7 +35,13 @@
             <td><%= key + 1 %></td>
             <td><%= link_to team.name, team, :remote => true, :class => "ranking-detail-team" %></span></td>
             <td><%= link_to team.user.username, team, :remote => true, :class => "ranking-detail-team" %></td>
-            <td><%= link_to team.points, team, :remote => true, :class => "ranking-detail-team" %></td>
+            <td>
+              <% if @period %>
+                <%= link_to team.points_for_period(@period), team, :remote => true, :class => "ranking-detail-team" %>
+              <% else %>
+                <%= link_to team.points, team, :remote => true, :class => "ranking-detail-team" %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120313213222) do
+ActiveRecord::Schema.define(:version => 20121201152451) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
@@ -64,6 +64,12 @@ ActiveRecord::Schema.define(:version => 20120313213222) do
     t.datetime "updated_at"
   end
 
+  create_table "periods", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "races", :force => true do |t|
     t.string   "name"
     t.datetime "date"
@@ -76,8 +82,11 @@ ActiveRecord::Schema.define(:version => 20120313213222) do
     t.boolean  "team_time_trial", :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "period_id"
     t.index ["race_id"], :name => "index_races_on_race_id"
     t.index ["category_id"], :name => "index_races_on_category_id"
+    t.index ["period_id"], :name => "index_races_on_period_id"
+    t.foreign_key ["period_id"], "periods", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_3"
     t.foreign_key ["race_id"], "races", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_1"
     t.foreign_key ["category_id"], "categories", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "races_ibfk_2"
   end

@@ -1,6 +1,7 @@
 class Race < ActiveRecord::Base
   SUBSCRIBE_UNTIL = 6 #ID of the race
-  
+
+  belongs_to :period
   belongs_to :category
   belongs_to :race
   has_many :races

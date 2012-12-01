@@ -16,6 +16,12 @@ class TeamsController < ApplicationController
     end
   end
 
+  def filter_period
+      @period = Period.find(params[:period_id])
+      @teams = Team.order_by_period(@period)
+      render "index"
+  end
+
   def filter_fb
     @teams = Team.all_with_users
     render "index" unless current_user

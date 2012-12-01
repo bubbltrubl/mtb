@@ -14,6 +14,12 @@ class Team < ActiveRecord::Base
 
   validates :budget, :numericality => {:greater_than_or_equal_to => 0 } 
   validates :riders, :length => {:is => MAXIMUM_SIZE}
+
+  def points_for_period(period)
+    points = 0
+    team_results.select {|team_result| team_result.race.period == period}.each{|team_result| points += team_result.points }
+    return points
+  end
   
   def self.calculate_budget(riders)
     budget = 2000000
@@ -23,5 +29,9 @@ class Team < ActiveRecord::Base
 
   def self.all_with_users
     self.includes(:user).order("points DESC").all
+  end
+
+  def self.order_by_period(period)
+    self.includes(:user,{:team_results => {:race => :period}}).all.sort {|x,y| y.points_for_period(period) <=> x.points_for_period(period)}
   end
 end
